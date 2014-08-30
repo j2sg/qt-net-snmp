@@ -1,0 +1,13 @@
+- qt-net-snmp 0.1.0
+
+   Copyright (c) 2014 Juan José Salazar García - jjslzgc@gmail.com
+
+   - Description
+
+      qt-net-snmp is an C++/Qt abstraction layer over Net-SNMP layer.
+
+   - License
+
+      qt-net-snmp is licensed under the GNU General Public License version 3, 
+      you should read LICENSE file to get more details about this.
+
