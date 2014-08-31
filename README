@@ -4,7 +4,7 @@
 
    - Description
 
-      qt-net-snmp is an C++/Qt abstraction layer over Net-SNMP layer.
+      qt-net-snmp is an C++/Qt abstraction layer over Net-SNMP API.
 
    - License
 
