@@ -18,9 +18,31 @@
  *
  **/
 
+/**
+* @file qsnmpmanager.h
+* @brief QSNMPManager class definition
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #ifndef QSNMPMANAGER_H
 #define QSNMPMANAGER_H
 
-class QSNMPManager;
+#include <QMutex>
+
+/**
+ * @brief QSNMPManager class that implements a SNMP Manager
+ */
+class QSNMPManager
+{
+public:
+    static QSNMPManager *instance();
+private:
+    QSNMPManager();
+    QSNMPManager(const QSNMPManager& /* manager */) {}
+    QSNMPManager& operator=(const QSNMPManager) { return *this; }
+
+    static QSNMPManager *_instance;
+    QMutex _mutex;
+};
 
 #endif // QSNMPMANAGER_H

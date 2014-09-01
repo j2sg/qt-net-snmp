@@ -18,5 +18,29 @@
  *
  **/
 
-#include "qsnmpmanager.h"
+/**
+* @file qsnmpmanager.cpp
+* @brief Definitions for Atributes and Methods of QSNMPManager class
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
 
+#include "qsnmpmanager.h"
+#include <QMutexLocker>
+
+QSNMPManager::QSNMPManager()
+{
+
+}
+
+QSNMPManager *QSNMPManager::instance()
+{
+    if(!_instance) {
+        QMutexLocker locker(&_mutex);
+        if(!_instance)
+            _instance = new QSNMPManager();
+    }
+
+    return _instance;
+}
+
+QSNMPManager *QSNMPManager::_instance = 0;

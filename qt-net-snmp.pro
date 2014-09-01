@@ -4,15 +4,19 @@
 
 TEMPLATE = lib
 
-# Directories
+DEPENDPATH += . include src
 
-OTHER_FILES += \
-    AUTHOR \
-    LICENSE \
-    README
+INCLUDEPATH += . include src
 
 HEADERS += \
     include/qsnmpmanager.h
 
 SOURCES += \
     src/qsnmpmanager.cpp
+
+LIBS += -lnetsnmp
+
+OTHER_FILES += \
+    AUTHOR \
+    LICENSE \
+    README
