@@ -19,21 +19,22 @@
  **/
 
 /**
-* @file qsnmpmanager.cpp
-* @brief Definitions for Atributes and Methods of QSNMPManager class
+* @file global.h
+* @brief Global constants
 * @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
 */
 
-#include "qsnmpmanager.h"
+#ifndef GLOBAL_H
+#define GLOBAL_H
 
-QtNetSNMP::QSNMPManager::QSNMPManager(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
-{
+#include "types.h"
 
-}
+#define DEFAULT_VERSION QtNetSNMP::SNMPv1
+#define DEFAULT_COMMUNITY_NAME "public"
+#define DEFAULT_NON_REPEATERS 0
+#define DEFAULT_MAX_REPETITIONS 10
+#define DEFAULT_PORT 161
+#define DEFAULT_RETRIES 2
+#define DEFAULT_TIMEOUT 1000000
 
-QtNetSNMP::QSNMPManager *QtNetSNMP::QSNMPManager::instance()
-{
-    static QSNMPManager instance;
-
-    return &instance;
-}
+#endif // GLOBAL_H

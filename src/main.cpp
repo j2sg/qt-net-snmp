@@ -18,22 +18,17 @@
  *
  **/
 
-/**
-* @file qsnmpmanager.cpp
-* @brief Definitions for Atributes and Methods of QSNMPManager class
-* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
-*/
-
 #include "qsnmpmanager.h"
+#include <iostream>
 
-QtNetSNMP::QSNMPManager::QSNMPManager(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
+/**
+ * Main function for debug purposes
+ */
+int main()
 {
+    QtNetSNMP::QSNMPManager *manager = QtNetSNMP::QSNMPManager::instance();
 
-}
+    std::cout << ((manager) ? "exists one QSNMPManager instance" : "not exists one QSNMPManager instance") << std::endl;
 
-QtNetSNMP::QSNMPManager *QtNetSNMP::QSNMPManager::instance()
-{
-    static QSNMPManager instance;
-
-    return &instance;
+    return 0;
 }
