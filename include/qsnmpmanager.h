@@ -30,18 +30,43 @@
 #include <QMutex>
 
 /**
- * @brief QSNMPManager class that implements a SNMP Manager
+ * @brief QSNMPManager class that implements the SNMP Manager Behavior
  */
 class QSNMPManager
 {
 public:
+
+    /**
+     * @brief Get the unique QSNMPManager instance (Singleton pattern)
+     * @return object instance of QSNMPManager class
+     */
     static QSNMPManager *instance();
 private:
+
+    /**
+     * @brief QSNMPManager constructor
+     */
     QSNMPManager();
+
+    /**
+     * @brief QSNMPManager copy constructor
+     */
     QSNMPManager(const QSNMPManager& /* manager */) {}
+
+    /**
+     * @brief operator = QSNMPManager assign overloaded operator
+     * @return reference to instance of QSNMPManager class
+     */
     QSNMPManager& operator=(const QSNMPManager) { return *this; }
 
+    /**
+     * @brief _instance unique QSNMPManager instance
+     */
     static QSNMPManager *_instance;
+
+    /**
+     * @brief _mutex mutex to provide access serialization between threads (thread-safe)
+     */
     QMutex _mutex;
 };
 
