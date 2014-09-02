@@ -25,15 +25,49 @@
 */
 
 #include "qsnmpmanager.h"
+#include <QDebug>
 
-QtNetSNMP::QSNMPManager::QSNMPManager(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
+void QtNetSNMP::QSNMPManager::setPort(unsigned short port)
 {
+    _port = port;
+}
 
+unsigned short QtNetSNMP::QSNMPManager::port() const
+{
+    return _port;
+}
+
+void QtNetSNMP::QSNMPManager::setRetries(unsigned short retries)
+{
+    _retries = retries;
+}
+
+unsigned short QtNetSNMP::QSNMPManager::retries() const
+{
+    return _retries;
+}
+
+void QtNetSNMP::QSNMPManager::setTimeout(long timeout)
+{
+    _timeout = timeout;
+}
+
+long QtNetSNMP::QSNMPManager::timeout() const
+{
+    return _timeout;
 }
 
 QtNetSNMP::QSNMPManager *QtNetSNMP::QSNMPManager::instance()
 {
+    // Meyers implementation of Singleton pattern, thread-safe in C++11
     static QSNMPManager instance;
 
     return &instance;
+}
+
+QtNetSNMP::QSNMPManager::QSNMPManager(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
+{
+    init_snmp(LIBRARY_NAME);
+
+    qDebug() << "QtNetSNMP::QSNMPManager::QSNMPManager -> Net-SNMP library initialized";
 }

@@ -11,7 +11,8 @@ INCLUDEPATH += . include src
 HEADERS += \
     include/qsnmpmanager.h \
     include/types.h \
-    include/global.h
+    include/global.h \
+    include/qsnmpexception.h
 
 SOURCES += \
     src/qsnmpmanager.cpp \

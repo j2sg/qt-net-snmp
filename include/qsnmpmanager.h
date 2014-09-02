@@ -37,6 +37,43 @@ namespace QtNetSNMP
     class QSNMPManager
     {
     public:
+        // Setters && Getters methods
+
+        /**
+         * @brief Set SNMP agent port
+         * @param port SNMP agent port
+         */
+        void setPort(unsigned short port);
+
+        /**
+         * @brief Get SNMP agent port
+         * @return SNMP agent port
+         */
+        unsigned short port() const;
+
+        /**
+         * @brief Set number of retries
+         * @param retries number of retries
+         */
+        void setRetries(unsigned short retries);
+
+        /**
+         * @brief Get number of retries
+         * @return number of retries
+         */
+        unsigned short retries() const;
+
+        /**
+         * @brief Set timeout
+         * @param timeout timeout
+         */
+        void setTimeout(long timeout);
+
+        /**
+         * @brief Get timeout
+         * @return  timeout
+         */
+        long timeout() const;
 
         /**
          * @brief Get a QSNMPManager instance
@@ -63,6 +100,11 @@ namespace QtNetSNMP
          * @return reference to instance of QSNMPManager class
          */
         QSNMPManager& operator=(const QSNMPManager) { return *this; }
+
+        /**
+         * @brief QSNMPManager destructor
+         */
+        ~QSNMPManager() {}
 
         /**
          * @brief _port SNMP Agent remote port

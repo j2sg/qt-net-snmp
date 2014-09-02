@@ -19,23 +19,48 @@
  **/
 
 /**
-* @file global.h
-* @brief Global constants declarations
+* @file qsnmpexception.cpp
+* @brief QSNMPException class definition
 * @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
 */
 
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#ifndef QSNMPEXCEPTION_H
+#define QSNMPEXCEPTION_H
 
-#include "types.h"
+#include <QString>
 
-#define LIBRARY_NAME "QtNetSNMP"
-#define DEFAULT_VERSION QtNetSNMP::SNMPv1
-#define DEFAULT_COMMUNITY_NAME "public"
-#define DEFAULT_NON_REPEATERS 0
-#define DEFAULT_MAX_REPETITIONS 10
-#define DEFAULT_PORT 161
-#define DEFAULT_RETRIES 2
-#define DEFAULT_TIMEOUT 1000000
+namespace QtNetSNMP
+{
+    /**
+     * @brief QSNMPException class to error handling
+     */
+    class QSNMPException
+    {
+    public:
+        /**
+         * @brief QSNMPException constructor
+         * @param message error description
+         */
+        QSNMPException(const QString& message)
+        {
+            _message = message;
+        }
 
-#endif // GLOBAL_H
+        /**
+         * @brief message Get error description
+         * @return error description
+         */
+        const QString& message() const
+        {
+            return _message;
+        }
+
+    private:
+        /**
+         * @brief _message error description
+         */
+        QString _message;
+    };
+}
+
+#endif // QSNMPEXCEPTION_H
