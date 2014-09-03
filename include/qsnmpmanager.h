@@ -28,16 +28,21 @@
 #define QSNMPMANAGER_H
 
 #include "global.h"
+#include "qsnmpexception.h"
+#include <QString>
+#include <QVector>
 
 namespace QtNetSNMP
 {
+    // Forward declarations
+    class QSNMPObject;
+
     /**
      * @brief QSNMPManager class that implements the SNMP Manager Behavior
      */
     class QSNMPManager
     {
     public:
-        // Setters && Getters methods
 
         /**
          * @brief Set SNMP agent port
@@ -80,6 +85,46 @@ namespace QtNetSNMP
          * @return pointer to instance of QSNMPManager class
          */
         static QSNMPManager *instance();
+
+        /**
+         * @brief snmpget Send SNMP GET request
+         * @param version SNMP version
+         * @param community community name
+         * @param agent ip address or domain name of SNMP agent
+         * @param objs SNMP objects list
+         */
+        void snmpget(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException);
+
+        /**
+         * @brief snmpgetnext Send SNMP GET NEXT request
+         * @param version SNMP version
+         * @param community community name
+         * @param agent ip address or domain name of SNMP agent
+         * @param objs SNMP objects list
+         */
+        void snmpgetnext(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException);
+
+        /**
+         * @brief snmpgetbulk Send SNMP GET BULK request
+         * @param version SNMP version
+         * @param community community name
+         * @param agent ip address or domain name of SNMP agent
+         * @param objs SNMP objects list
+         * @param nrepaters number of objects that are only expected to return a single instance
+         * @param mrepetitions number of objects that should be returned for all the repeating OIDs
+         */
+        void snmpgetbulk(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
+                         unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
+
+        /**
+         * @brief snmpgetbulk Send SNMP SET request
+         * @param version SNMP version
+         * @param community community name
+         * @param agent ip address or domain name of SNMP agent
+         * @param objs SNMP objects list
+         */
+        void snmpset(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException);
+
     private:
 
         /**
@@ -97,9 +142,9 @@ namespace QtNetSNMP
 
         /**
          * @brief overloaded assignment operator
-         * @return reference to instance of QSNMPManager class
+         * @return reference to own object instance
          */
-        QSNMPManager& operator=(const QSNMPManager) { return *this; }
+        QSNMPManager& operator=(const QSNMPManager& /* manager */) { return *this; }
 
         /**
          * @brief QSNMPManager destructor

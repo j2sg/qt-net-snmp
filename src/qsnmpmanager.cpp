@@ -25,6 +25,7 @@
 */
 
 #include "qsnmpmanager.h"
+#include "qsnmpobject.h"
 #include <QDebug>
 
 void QtNetSNMP::QSNMPManager::setPort(unsigned short port)
@@ -64,6 +65,28 @@ QtNetSNMP::QSNMPManager *QtNetSNMP::QSNMPManager::instance()
 
     return &instance;
 }
+
+void QtNetSNMP::QSNMPManager::snmpget(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException)
+{
+
+}
+
+void QtNetSNMP::QSNMPManager::snmpgetnext(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException)
+{
+
+}
+
+void QtNetSNMP::QSNMPManager::snmpgetbulk(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
+                                          unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
+{
+
+}
+
+void QtNetSNMP::QSNMPManager::snmpset(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException)
+{
+
+}
+
 
 QtNetSNMP::QSNMPManager::QSNMPManager(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
 {
