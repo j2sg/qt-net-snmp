@@ -25,38 +25,9 @@
 */
 
 #include "qsnmpmanager.h"
+#include "qsnmpcore.h"
 #include "qsnmpobject.h"
 #include <QDebug>
-
-void QtNetSNMP::QSNMPManager::setPort(unsigned short port)
-{
-    _port = port;
-}
-
-unsigned short QtNetSNMP::QSNMPManager::port() const
-{
-    return _port;
-}
-
-void QtNetSNMP::QSNMPManager::setRetries(unsigned short retries)
-{
-    _retries = retries;
-}
-
-unsigned short QtNetSNMP::QSNMPManager::retries() const
-{
-    return _retries;
-}
-
-void QtNetSNMP::QSNMPManager::setTimeout(long timeout)
-{
-    _timeout = timeout;
-}
-
-long QtNetSNMP::QSNMPManager::timeout() const
-{
-    return _timeout;
-}
 
 QtNetSNMP::QSNMPManager *QtNetSNMP::QSNMPManager::instance()
 {
@@ -68,27 +39,35 @@ QtNetSNMP::QSNMPManager *QtNetSNMP::QSNMPManager::instance()
 
 void QtNetSNMP::QSNMPManager::snmpget(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException)
 {
+    QSNMPCore *core = QSNMPCore::instance();
 
+    core -> snmpoperation(SNMPPDUGet, version, community, agent, objs);
 }
 
 void QtNetSNMP::QSNMPManager::snmpgetnext(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException)
 {
+    QSNMPCore *core = QSNMPCore::instance();
 
+    core -> snmpoperation(SNMPPDUGetNext, version, community, agent, objs);
 }
 
 void QtNetSNMP::QSNMPManager::snmpgetbulk(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
                                           unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
 {
+    QSNMPCore *core = QSNMPCore::instance();
 
+    core -> snmpoperation(SNMPPDUGetBulk, version, community, agent, objs, nrepeaters, mrepetitions);
 }
 
 void QtNetSNMP::QSNMPManager::snmpset(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException)
 {
+    QSNMPCore *core = QSNMPCore::instance();
 
+    core -> snmpoperation(SNMPPDUSet, version, community, agent, objs);
 }
 
 
-QtNetSNMP::QSNMPManager::QSNMPManager(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
+QtNetSNMP::QSNMPManager::QSNMPManager()
 {
     init_snmp(LIBRARY_NAME);
 

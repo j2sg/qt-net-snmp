@@ -53,7 +53,7 @@ namespace QtNetSNMP
     } SNMPPDUType;
 
     /**
-     * @brief SNMP Data type to one MIB object
+     * @brief SNMP Data type to MIB object
      */
     typedef enum SNMPDataTypeEnum {
         SNMPDataUnknown     = -1,
@@ -71,6 +71,9 @@ namespace QtNetSNMP
         SNMPDataTimeTicks   = ASN_TIMETICKS
     } SNMPDataType;
 
+    /**
+     * @brief Current status to MIB object
+     */
     typedef enum MIBStatusEnum {
         MIBStatusMandatory  = MIB_STATUS_MANDATORY,
         MIBStatusOptional   = MIB_STATUS_OPTIONAL,
@@ -78,6 +81,9 @@ namespace QtNetSNMP
         MIBStatusDeprecated = MIB_STATUS_DEPRECATED
     } MIBStatus;
 
+    /**
+     * @brief Access mode to MIB object
+     */
     typedef enum MIBAccessEnum {
         MIBAccessReadOnly      = MIB_ACCESS_READONLY,
         MIBAccessReadWrite     = MIB_ACCESS_READWRITE,

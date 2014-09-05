@@ -45,49 +45,13 @@ namespace QtNetSNMP
     public:
 
         /**
-         * @brief Set SNMP agent port
-         * @param port SNMP agent port
-         */
-        void setPort(unsigned short port);
-
-        /**
-         * @brief Get SNMP agent port
-         * @return SNMP agent port
-         */
-        unsigned short port() const;
-
-        /**
-         * @brief Set number of retries
-         * @param retries number of retries
-         */
-        void setRetries(unsigned short retries);
-
-        /**
-         * @brief Get number of retries
-         * @return number of retries
-         */
-        unsigned short retries() const;
-
-        /**
-         * @brief Set timeout
-         * @param timeout timeout
-         */
-        void setTimeout(long timeout);
-
-        /**
-         * @brief Get timeout
-         * @return  timeout
-         */
-        long timeout() const;
-
-        /**
          * @brief Get a QSNMPManager instance
          * @return pointer to instance of QSNMPManager class
          */
         static QSNMPManager *instance();
 
         /**
-         * @brief snmpget Send SNMP GET request
+         * @brief Send SNMP GET request
          * @param version SNMP version
          * @param community community name
          * @param agent ip address or domain name of SNMP agent
@@ -96,7 +60,7 @@ namespace QtNetSNMP
         void snmpget(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException);
 
         /**
-         * @brief snmpgetnext Send SNMP GET NEXT request
+         * @brief Send SNMP GET NEXT request
          * @param version SNMP version
          * @param community community name
          * @param agent ip address or domain name of SNMP agent
@@ -105,7 +69,7 @@ namespace QtNetSNMP
         void snmpgetnext(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException);
 
         /**
-         * @brief snmpgetbulk Send SNMP GET BULK request
+         * @brief Send SNMP GET BULK request
          * @param version SNMP version
          * @param community community name
          * @param agent ip address or domain name of SNMP agent
@@ -117,7 +81,7 @@ namespace QtNetSNMP
                          unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
 
         /**
-         * @brief snmpgetbulk Send SNMP SET request
+         * @brief Send SNMP SET request
          * @param version SNMP version
          * @param community community name
          * @param agent ip address or domain name of SNMP agent
@@ -129,11 +93,8 @@ namespace QtNetSNMP
 
         /**
          * @brief QSNMPManager constructor
-         * @param port SNMP agent port
-         * @param retries number of retries
-         * @param timeout number of microseconds for timeout
          */
-        QSNMPManager(unsigned short port = DEFAULT_PORT, unsigned short retries = DEFAULT_RETRIES, long timeout = DEFAULT_TIMEOUT);
+        QSNMPManager();
 
         /**
          * @brief QSNMPManager copy constructor
@@ -150,21 +111,6 @@ namespace QtNetSNMP
          * @brief QSNMPManager destructor
          */
         ~QSNMPManager() {}
-
-        /**
-         * @brief _port SNMP Agent remote port
-         */
-        unsigned short _port;
-
-        /**
-         * @brief retries Number of retries before timeout
-         */
-        unsigned short _retries;
-
-        /**
-         * @brief _timeout Number of microseconds until first timeout
-         */
-        unsigned long _timeout;
     };
 }
 

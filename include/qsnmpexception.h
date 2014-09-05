@@ -47,7 +47,7 @@ namespace QtNetSNMP
         }
 
         /**
-         * @brief message Get error description
+         * @brief Get error description
          * @return error description
          */
         const QString& message() const

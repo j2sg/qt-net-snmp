@@ -45,13 +45,49 @@ namespace QtNetSNMP
     public:
 
         /**
+         * @brief Set SNMP agent port
+         * @param port SNMP agent port
+         */
+        void setPort(unsigned short port);
+
+        /**
+         * @brief Get SNMP agent port
+         * @return SNMP agent port
+         */
+        unsigned short port() const;
+
+        /**
+         * @brief Set number of retries
+         * @param retries number of retries
+         */
+        void setRetries(unsigned short retries);
+
+        /**
+         * @brief Get number of retries
+         * @return number of retries
+         */
+        unsigned short retries() const;
+
+        /**
+         * @brief Set timeout
+         * @param timeout timeout
+         */
+        void setTimeout(long timeout);
+
+        /**
+         * @brief Get timeout
+         * @return timeout
+         */
+        long timeout() const;
+
+        /**
          * @brief Get a QSNMPCore instance
          * @return  pointer to instance of QSNMPCore class
          */
         static QSNMPCore *instance();
 
         /**
-         * @brief snmpoperation Send SNMP request
+         * @brief Send SNMP request
          * @param type SNMP request type
          * @param version SNMP version
          * @param community community name
@@ -66,8 +102,11 @@ namespace QtNetSNMP
 
         /**
          * @brief QSNMPCore constructor
+         * @param port SNMP agent port
+         * @param retries number of retries
+         * @param timeout number of microseconds for timeout
          */
-        QSNMPCore() {}
+        QSNMPCore(unsigned short port = DEFAULT_PORT, unsigned short retries = DEFAULT_RETRIES, long timeout = DEFAULT_TIMEOUT);
 
         /**
          * @brief QSNMPCore copy constructor
@@ -75,7 +114,7 @@ namespace QtNetSNMP
         QSNMPCore(const QSNMPCore& /* core */) {}
 
         /**
-         * @brief operator = overloaded assignment operator
+         * @brief overloaded assignment operator
          * @return reference to own object instance
          */
         QSNMPCore& operator=(const QSNMPCore& /* core */) { return *this; }
@@ -85,7 +124,35 @@ namespace QtNetSNMP
          */
         ~QSNMPCore() {}
 
+        /**
+         * @brief Create a SNMP session between the manager and one agent
+         * @param version SNMP version
+         * @param community community name
+         * @param agent agent ip address or domain name of SNMP agent
+         * @return pointer to instance of SNMPSession struct
+         */
+        SNMPSession *createSession(SNMPVersion version, const QString& community, const QString& agent) throw(QSNMPException);
 
+        SNMPPDU *createPDU(SNMPPDUType type, const QVector<QSNMPObject *>& objs, unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
+
+        SNMPPDU *sendPDU(SNMPSession *session, SNMPPDU *pdu) throw(QSNMPException);
+
+        void processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs, SNMPPDUType type);
+
+        /**
+         * @brief _port SNMP Agent remote port
+         */
+        unsigned short _port;
+
+        /**
+         * @brief retries Number of retries before timeout
+         */
+        unsigned short _retries;
+
+        /**
+         * @brief _timeout Number of microseconds until first timeout
+         */
+        unsigned long _timeout;
     };
 }
 
