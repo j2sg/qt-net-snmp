@@ -125,19 +125,39 @@ namespace QtNetSNMP
         ~QSNMPCore() {}
 
         /**
-         * @brief Create a SNMP session between the manager and one agent
+         * @brief Create a SNMP session with agent
          * @param version SNMP version
          * @param community community name
          * @param agent agent ip address or domain name of SNMP agent
-         * @return pointer to instance of SNMPSession struct
+         * @return pointer to SNMPSession struct
          */
         SNMPSession *createSession(SNMPVersion version, const QString& community, const QString& agent) throw(QSNMPException);
 
+        /**
+         * @brief Create a SNMP PDU request
+         * @param type SNMP PDU type
+         * @param objs SNMP objects list
+         * @param nrepaters number of objects that are only expected to return a single instance
+         * @param mrepetitions number of objects that should be returned for all the repeating OIDs
+         * @return pointer to SNMPPDU struct
+         */
         SNMPPDU *createPDU(SNMPPDUType type, const QVector<QSNMPObject *>& objs, unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
 
+
+        /**
+         * @brief Send a PDU request by an SNMP session and receive a PDU response
+         * @param session SNMP session with agent
+         * @param pdu SNMP PDU
+         * @return pointer SNMPPDU struct
+         */
         SNMPPDU *sendPDU(SNMPSession *session, SNMPPDU *pdu) throw(QSNMPException);
 
-        void processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs, SNMPPDUType type);
+        /**
+         * @brief Process a PDU responsed received from a SNMP agent
+         * @param pdu SNMP PDU response
+         * @param objs SNMP objects list
+         */
+        void processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs);
 
         /**
          * @brief _port SNMP Agent remote port

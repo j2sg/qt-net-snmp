@@ -185,25 +185,23 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::sendPDU(SNMPSession *session, SNMPPDU 
         throw SNMPSessionException(*session, "Error en sesion SNMP");
 }
 
-void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs, SNMPPDUType type)
+void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs)
 {
-    if(type != SNMPPDUSet) {
-        // Liberamos memoria y borramos la lista de OIDs
-        for(std::vector<SNMPOID *>::iterator vi = oids.begin();vi != oids.end(); ++vi)
-            delete *vi;
+    // Liberamos memoria y borramos la lista de OIDs
+    for(std::vector<SNMPOID *>::iterator vi = oids.begin();vi != oids.end(); ++vi)
+        delete *vi;
 
-        oids.clear();
+    oids.clear();
 
-        // Iteramos por la lista de variables de la PDU de
-        // respuesta estableciendo el (tipo, valor) de cada OID
-        for(SNMPVariableList *vl = pdu -> variables; vl; vl = vl -> next_variable) {
-            SNMPOID *object = new SNMPOID(vl -> name, vl -> name_length);
+    // Iteramos por la lista de variables de la PDU de
+    // respuesta estableciendo el (tipo, valor) de cada OID
+    for(SNMPVariableList *vl = pdu -> variables; vl; vl = vl -> next_variable) {
+        SNMPOID *object = new SNMPOID(vl -> name, vl -> name_length);
 
-            object -> data() -> setType((SNMPDataType) vl -> type);
-            object -> data() -> setLength(vl -> val_len);
-            object -> data() -> setValue((SNMPValue) vl -> val);
+        object -> data() -> setType((SNMPDataType) vl -> type);
+        object -> data() -> setLength(vl -> val_len);
+        object -> data() -> setValue((SNMPValue) vl -> val);
 
-            oids.push_back(object);
-        }
+        oids.push_back(object);
     }
 }
