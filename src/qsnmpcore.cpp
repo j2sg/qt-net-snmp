@@ -57,7 +57,6 @@ long QtNetSNMP::QSNMPCore::timeout() const
     return _timeout;
 }
 
-
 QtNetSNMP::QSNMPCore *QtNetSNMP::QSNMPCore::instance()
 {
     // Meyers implementation of Singleton pattern, thread-safe in C++11
@@ -69,22 +68,25 @@ QtNetSNMP::QSNMPCore *QtNetSNMP::QSNMPCore::instance()
 void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
                            unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
 {
-    SNMPSession *session; // Sesion SNMP Gestor-Agente
-    SNMPPDU *requestPDU;  // PDU SNMP de peticion
-    SNMPPDU *responsePDU; // PDU SNMP de respuesta
+    SNMPSession *session;
+    SNMPPDU *requestPDU;
+    SNMPPDU *responsePDU;
 
-    session = createSession(version, community, agent);           // Inicializacion de sesion
-    requestPDU = createPDU(type, oids, nrepeaters, mrepetitions); // Creacion de PDU de peticion
-    responsePDU = sendPDU(session, requestPDU);                   // Envio de PDU de peticion
-    if(type != SNMPPDUSet)                                        // Procesamos la respuesta a una consulta
-        processResponse(responsePDU, oids, type);                 // Procesamiento de PDU de respuesta
+    session = createSession(version, community, agent);
+    requestPDU = createPDU(type, oids, nrepeaters, mrepetitions);
+    responsePDU = sendPDU(session, requestPDU);
+    if(type != SNMPPDUSet)
+        processResponse(responsePDU, oids);
 
-    snmp_free_pdu(responsePDU);                                   // Liberacion de recursos en PDU de respuesta
-    snmp_close(session);                                          // Cerramos la sesion
-    SOCK_CLEANUP;                                                 // Liberacion de recursos para SOs win32 (Sin efecto en SOs Unix).
+    snmp_free_pdu(responsePDU);
+    snmp_close(session);
+    SOCK_CLEANUP;                 // Free resources on Win32. (No effect on Unix systems)
 }
 
-QtNetSNMP::QSNMPCore::QSNMPCore(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout) {}
+QtNetSNMP::QSNMPCore::QSNMPCore(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
+{
+    init_snmp(LIBRARY_NAME);
+}
 
 QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version, const QString& community, const QString& agent) throw(QSNMPException)
 {
@@ -92,21 +94,21 @@ QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version,
     SNMPSession *openedSession;
 
     if(version != SNMPv1 && version != SNMPv2)
-        throw SNMPException("Error de inicializacion en sesion SNMP. Version no soportada.");
+        throw QSNMPException("SNMP Session :: Error during initializacion :: Version not supported");
 
-    snmp_sess_init(&session);                           // Inicializacion de sesion
-    session.remote_port = _remotePort;                  // Numero de puerto del agente remoto
-    session.retries = _retries;                         // Numero de reintentos
-    session.timeout = _timeout;                         // Numero de uSegundos para timeout
-    session.version = version;                          // Version SNMP
-    session.community = (u_char *) community.c_str();   // Comunidad SNMPv1-2
-    session.community_len = community.length();         // Longitud del nombre de la comunidad
-    session.peername = (char *) agent.c_str();          // Direccion del agente
-    SOCK_STARTUP;                                       // Inicializacion para SOs win32 (Sin efecto en SOs Unix).
+    snmp_sess_init(&session);
+    session.remote_port = _port;
+    session.retries = _retries;
+    session.timeout = _timeout;
+    session.version = version;
+    session.community = (u_char *) community.toStdString().c_str();
+    session.community_len = community.length();
+    session.peername = (char *) agent.toStdString().c_str();
+    SOCK_STARTUP;
 
-    if(!(openedSession = snmp_open(&session))) {        // Apertura de sesion
-        SOCK_CLEANUP;                                   // Liberacion de recursos para SOs win32 (Sin efecto en SOs Unix).
-        throw SNMPSessionException(session, "Error de apertura en sesion SNMP");
+    if(!(openedSession = snmp_open(&session))) {
+        SOCK_CLEANUP;
+        //throw QSNMPSessionException(session, "SNMP Session :: Error on session openning");
     }
 
     return openedSession;
@@ -114,20 +116,22 @@ QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version,
 
 QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, const QVector<QSNMPObject *>& objs, unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
 {
-    SNMPPDU *pdu; // PDU SNMP de peticion
+    SNMPPDU *pdu;
 
-    // Verificamos el tipo de la PDU
     if(type != SNMPPDUGet && type != SNMPPDUGetNext && type != SNMPPDUGetBulk && type != SNMPPDUSet)
-        throw SNMPException("Error en la creacion de la PDU. Tipo no valido");
+        throw QSNMPException("SNMP PDU :: Error during PDU creation :: Unknown type");
 
-    // Verificamos que se ha introducido al menos un OID
-    if(oids.empty())
-        throw SNMPException("Error en la creacion de la PDU. No especificado ningun OID.");
+    if(objs.empty())
+        throw QSNMPException("SNMP PDU :: Error during PDU creation :: No object specified");
 
-    pdu = snmp_pdu_create(type);            // Creacion de PDU SNMP
+    pdu = snmp_pdu_create(type);
 
-    // Iteramos a traves de los OIDs
-    for(std::vector<SNMPOID *>::const_iterator vi = oids.begin(); vi != oids.end(); vi++) {
+    foreach (QSNMPObject *object, objs) {
+        if(type == SNMPPDUSet) {
+
+        }
+    }
+    for(std::vector<QSNMPObject *>::const_iterator vi = oids.begin(); vi != oids.end(); vi++) {
         if(type == SNMPPDUSet) { // Aniadimos a la PDU el valor correspondiente al k-esimo OID
             if((*vi) -> data() -> type() == SNMPDataUnknown)
                 throw SNMPOIDException((*vi) -> strOID(), "Error en la creacion de la PDU. Operacion SNMPSet sobre OID de tipo desconocido.");
@@ -187,6 +191,9 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::sendPDU(SNMPSession *session, SNMPPDU 
 
 void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs)
 {
+    if(pdu->command != SNMPPDUResponse)
+        return;
+
     // Liberamos memoria y borramos la lista de OIDs
     for(std::vector<SNMPOID *>::iterator vi = oids.begin();vi != oids.end(); ++vi)
         delete *vi;

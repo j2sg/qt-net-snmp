@@ -21,13 +21,27 @@
 #ifndef QSNMPOBJECT_H
 #define QSNMPOBJECT_H
 
+#include "types.h"
+#include <QString>
+
 namespace QtNetSNMP
 {
+    class QSNMPOID;
+    class QSNMPData;
+
     /**
      * @brief QSNMPObject class
      */
     class QSNMPObject
     {
+    public:
+    private:
+        QSNMPOID *_oid;
+        QSNMPData *_data;
+        QString _name;
+        MIBStatus _status;
+        MIBAccess _access;
+        QString _description;
     };
 }
 

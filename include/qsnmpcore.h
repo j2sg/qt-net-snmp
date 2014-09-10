@@ -43,7 +43,6 @@ namespace QtNetSNMP
     class QSNMPCore
     {
     public:
-
         /**
          * @brief Set SNMP agent port
          * @param port SNMP agent port
@@ -134,7 +133,7 @@ namespace QtNetSNMP
         SNMPSession *createSession(SNMPVersion version, const QString& community, const QString& agent) throw(QSNMPException);
 
         /**
-         * @brief Create a SNMP PDU request
+         * @brief Create a SNMP request PDU
          * @param type SNMP PDU type
          * @param objs SNMP objects list
          * @param nrepaters number of objects that are only expected to return a single instance
@@ -145,16 +144,16 @@ namespace QtNetSNMP
 
 
         /**
-         * @brief Send a PDU request by an SNMP session and receive a PDU response
+         * @brief Send a request PDU by an SNMP session and receive a response PDU from agent
          * @param session SNMP session with agent
-         * @param pdu SNMP PDU
+         * @param pdu SNMP request PDU
          * @return pointer SNMPPDU struct
          */
         SNMPPDU *sendPDU(SNMPSession *session, SNMPPDU *pdu) throw(QSNMPException);
 
         /**
-         * @brief Process a PDU responsed received from a SNMP agent
-         * @param pdu SNMP PDU response
+         * @brief Process a response PDU received from a SNMP agent
+         * @param pdu SNMP response PDU
          * @param objs SNMP objects list
          */
         void processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs);
@@ -167,6 +166,7 @@ namespace QtNetSNMP
         /**
          * @brief retries Number of retries before timeout
          */
+
         unsigned short _retries;
 
         /**

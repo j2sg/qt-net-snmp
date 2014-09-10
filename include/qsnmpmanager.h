@@ -35,6 +35,7 @@
 namespace QtNetSNMP
 {
     // Forward declarations
+    class QSNMPCore;
     class QSNMPObject;
 
     /**
@@ -49,6 +50,14 @@ namespace QtNetSNMP
          * @return pointer to instance of QSNMPManager class
          */
         static QSNMPManager *instance();
+
+        /**
+         * @brief Set up SNMP Manager parameters
+         * @param port SNMP agent port
+         * @param retries number of retries
+         * @param timeout number of microseconds for timeout
+         */
+        void setup(unsigned short port, unsigned short retries = DEFAULT_RETRIES, long timeout = DEFAULT_TIMEOUT);
 
         /**
          * @brief Send SNMP GET request
@@ -92,7 +101,7 @@ namespace QtNetSNMP
     private:
 
         /**
-         * @brief QSNMPManager constructor
+         * @brief QSNMPCore constructor
          */
         QSNMPManager();
 
@@ -111,6 +120,11 @@ namespace QtNetSNMP
          * @brief QSNMPManager destructor
          */
         ~QSNMPManager() {}
+
+        /**
+         * @brief _core SNMP core that offers support to protocol
+         */
+        QSNMPCore *_core;
     };
 }
 

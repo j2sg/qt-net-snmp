@@ -14,13 +14,17 @@ HEADERS += \
     include/global.h \
     include/qsnmpexception.h \
     include/qsnmpobject.h \
-    include/qsnmpcore.h
+    include/qsnmpcore.h \
+    include/qsnmpdata.h \
+    include/qsnmpoid.h
 
 SOURCES += \
     src/qsnmpmanager.cpp \
     src/main.cpp \
     src/qsnmpobject.cpp \
-    src/qsnmpcore.cpp
+    src/qsnmpcore.cpp \
+    src/qsnmpoid.cpp \
+    src/qsnmpdata.cpp
 
 LIBS += -lnetsnmp
 
