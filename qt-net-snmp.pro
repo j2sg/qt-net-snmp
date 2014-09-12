@@ -4,6 +4,9 @@
 
 TEMPLATE = app
 
+OBJECTS_DIR = build
+MOC_DIR = build
+
 DEPENDPATH += . include src
 
 INCLUDEPATH += . include src
@@ -16,7 +19,8 @@ HEADERS += \
     include/qsnmpobject.h \
     include/qsnmpcore.h \
     include/qsnmpdata.h \
-    include/qsnmpoid.h
+    include/qsnmpoid.h \
+    include/ostream.h
 
 SOURCES += \
     src/qsnmpmanager.cpp \
@@ -24,7 +28,8 @@ SOURCES += \
     src/qsnmpobject.cpp \
     src/qsnmpcore.cpp \
     src/qsnmpoid.cpp \
-    src/qsnmpdata.cpp
+    src/qsnmpdata.cpp \
+    src/ostream.cpp
 
 LIBS += -lnetsnmp
 

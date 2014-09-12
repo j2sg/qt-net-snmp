@@ -35,8 +35,24 @@ namespace QtNetSNMP
     class QSNMPObject
     {
     public:
+        QSNMPObject(QSNMPOID *objID = 0, QSNMPData *data = 0);
+        QSNMPObject(const QSNMPObject& obj);
+        QSNMPObject& operator=(const QSNMPObject& obj);
+        ~QSNMPObject();
+        QSNMPObject *objID();
+        void setObjID(QSNMPObject *objID);
+        QSNMPData *data();
+        void setData(QSNMPData *data);
+        const QString& name() const;
+        void setName(const QString& name);
+        MIBStatus status() const;
+        void setStatus(MIBStatus status);
+        MIBAccess access() const;
+        void setAccess(MIBAccess access);
+        const QString& description() const;
+        void setDescription(const QString& description);
     private:
-        QSNMPOID *_oid;
+        QSNMPOID *_objID;
         QSNMPData *_data;
         QString _name;
         MIBStatus _status;

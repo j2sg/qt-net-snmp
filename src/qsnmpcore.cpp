@@ -73,10 +73,10 @@ void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, 
     SNMPPDU *responsePDU;
 
     session = createSession(version, community, agent);
-    requestPDU = createPDU(type, oids, nrepeaters, mrepetitions);
+    requestPDU = createPDU(type, objs, nrepeaters, mrepetitions);
     responsePDU = sendPDU(session, requestPDU);
     if(type != SNMPPDUSet)
-        processResponse(responsePDU, oids);
+        processResponse(responsePDU, objs);
 
     snmp_free_pdu(responsePDU);
     snmp_close(session);
@@ -116,7 +116,7 @@ QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version,
 
 QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, const QVector<QSNMPObject *>& objs, unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
 {
-    SNMPPDU *pdu;
+    /**SNMPPDU *pdu;
 
     if(type != SNMPPDUGet && type != SNMPPDUGetNext && type != SNMPPDUGetBulk && type != SNMPPDUSet)
         throw QSNMPException("SNMP PDU :: Error during PDU creation :: Unknown type");
@@ -166,12 +166,13 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, const QVec
         pdu -> errindex = mrepetitions;
     }
 
-    return pdu;
+    return pdu;*/
+    return 0;
 }
 
 QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::sendPDU(SNMPSession *session, SNMPPDU *pdu) throw(QSNMPException)
 {
-    SNMPPDU *response;  // PDU SNMP de respuesta
+    /*SNMPPDU *response;  // PDU SNMP de respuesta
     int status;         // Estado de la recepcion del mensaje
 
     // Enviamos la PDU SNMP de peticion
@@ -186,12 +187,13 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::sendPDU(SNMPSession *session, SNMPPDU 
     else if(status == STAT_TIMEOUT) // No hay respuesta del agente
         throw SNMPException("Timeout, no hay respuesta del agente");
     else // Error de sesion (comunidad no valida, acceso no permitido, etc)
-        throw SNMPSessionException(*session, "Error en sesion SNMP");
+        throw SNMPSessionException(*session, "Error en sesion SNMP");*/
+    return 0;
 }
 
-void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs)
+void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, QVector<QSNMPObject *>& objs)
 {
-    if(pdu->command != SNMPPDUResponse)
+    /*if(pdu->command != SNMPPDUResponse)
         return;
 
     // Liberamos memoria y borramos la lista de OIDs
@@ -210,5 +212,5 @@ void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, std::vector<QSNMPObject
         object -> data() -> setValue((SNMPValue) vl -> val);
 
         oids.push_back(object);
-    }
+    }*/
 }

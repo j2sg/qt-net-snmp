@@ -18,3 +18,60 @@
  *
  **/
 
+#include "qsnmpdata.h"
+
+QtNetSNMP::QSNMPData::QSNMPData(SNMPDataType type, void *value, size_t length)
+{
+
+}
+
+QtNetSNMP::QSNMPData::QSNMPData(const QSNMPData& snmpData)
+{
+
+}
+
+QtNetSNMP::QSNMPData::~QSNMPData()
+{
+
+}
+
+QtNetSNMP::QSNMPData& QtNetSNMP::QSNMPData::operator=(const QSNMPData& snmpData)
+{
+    return *this;
+}
+
+QtNetSNMP::SNMPDataType QtNetSNMP::QSNMPData::type() const
+{
+    return SNMPDataUnknown;
+}
+
+void QtNetSNMP::QSNMPData::setType(SNMPDataType type)
+{
+}
+
+void *QtNetSNMP::QSNMPData::value() const
+{
+    return 0;
+}
+
+void QtNetSNMP::QSNMPData::setValue(void *value)
+{
+}
+
+void QtNetSNMP::QSNMPData::setValue(const SNMPValue& value)
+{
+}
+
+size_t QtNetSNMP::QSNMPData::length() const
+{
+    return 0;
+}
+
+void QtNetSNMP::QSNMPData::setLength(size_t length)
+{
+}
+
+const QString& QtNetSNMP::QSNMPData::toString() const
+{
+    return QString();
+}

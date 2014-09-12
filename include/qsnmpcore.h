@@ -156,7 +156,7 @@ namespace QtNetSNMP
          * @param pdu SNMP response PDU
          * @param objs SNMP objects list
          */
-        void processResponse(SNMPPDU *pdu, std::vector<QSNMPObject *>& objs);
+        void processResponse(SNMPPDU *pdu, QVector<QSNMPObject *>& objs);
 
         /**
          * @brief _port SNMP Agent remote port

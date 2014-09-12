@@ -19,20 +19,60 @@
  **/
 
 #include "qsnmpoid.h"
+#include <QVector>
 
-QtNetSNMP::QSNMPOID::QSNMPOID(oid *numOID, size_t numOIDLength) : _numOID(numOID), _numOIDLength(numOIDLength)
+QtNetSNMP::QSNMPOID::QSNMPOID(QVector<int> *numOID)
 {
 }
 
-QSNMPOID(const QString& textOID);
-QSNMPOID(const QSNMPOID& snmpOID);
-~QSNMPOID();
-QSNMPOID& operator=(const QSNMPOID& snmpOID);
-const oid *numOID() const;
-size_t numOIDLength() const;
-void setNumOID(oid *numOID, size_t numOIDLength) throw(QSNMPException);
-const QString& textOID() const;
-void setTextOID(const QString& textOID) throw(QSNMPException);
+QtNetSNMP::QSNMPOID::QSNMPOID(const QString& textOID)
+{
+}
 
-oid *toNumeric();
-QString& toTextual();
+QtNetSNMP::QSNMPOID::QSNMPOID(const QSNMPOID& snmpOID)
+{
+}
+
+QtNetSNMP::QSNMPOID& QtNetSNMP::QSNMPOID::operator=(const QSNMPOID& snmpOID)
+{
+    return *this;
+}
+
+QtNetSNMP::QSNMPOID& QtNetSNMP::QSNMPOID::operator+(int n)
+{
+    return *this;
+}
+
+QtNetSNMP::QSNMPOID::~QSNMPOID()
+{
+    if(_numOID)
+        delete _numOID;
+}
+
+const QVector<int> *QtNetSNMP::QSNMPOID::numOID() const
+{
+    return 0;
+}
+
+void QtNetSNMP::QSNMPOID::setNumOID(QVector<int> *numOID) throw(QSNMPException)
+{
+}
+
+const QString& QtNetSNMP::QSNMPOID::textOID() const
+{
+    return QString();
+}
+
+void QtNetSNMP::QSNMPOID::setTextOID(const QString& textOID) throw(QSNMPException)
+{
+}
+
+QVector<int> *QtNetSNMP::QSNMPOID::toNumeric(const QString& textOID)
+{
+    return 0;
+}
+
+QString QtNetSNMP::QSNMPOID::toTextual()
+{
+    return QString();
+}

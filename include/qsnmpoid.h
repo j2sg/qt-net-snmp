@@ -24,28 +24,32 @@
 #include "types.h"
 #include "qsnmpexception.h"
 #include <QString>
+#include <QVector>
 
 namespace QtNetSNMP
 {
     class QSNMPOID
     {
+        friend std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
     public:
-        QSNMPOID(oid *numOID, size_t numOIDLength);
+        QSNMPOID(QVector<int> *numOID);
         QSNMPOID(const QString& textOID);
         QSNMPOID(const QSNMPOID& snmpOID);
-        ~QSNMPOID();
         QSNMPOID& operator=(const QSNMPOID& snmpOID);
-        const oid *numOID() const;
-        size_t numOIDLength() const;
-        void setNumOID(oid *numOID, size_t numOIDLength) throw(QSNMPException);
+        QSNMPOID& operator+(int n);
+        ~QSNMPOID();
+        const QVector<int> *numOID() const;
+        void setNumOID(QVector<int> *numOID) throw(QSNMPException);
         const QString& textOID() const;
         void setTextOID(const QString& textOID) throw(QSNMPException);
     private:
-        oid *toNumeric();
-        QString& toTextual();
+        QVector<int> *toNumeric(const QString& textOID);
+        QString toTextual();
 
-        QVector<int> _numOID;
+        QVector<int> *_numOID;
     };
+
+    std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
 }
 
 #endif // QSNMPOID_H

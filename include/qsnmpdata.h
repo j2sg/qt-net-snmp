@@ -50,4 +50,3 @@ namespace QtNetSNMP
 }
 
 #endif // QSNMPDATA_H
-
