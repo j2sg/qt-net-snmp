@@ -30,7 +30,6 @@ QtNetSNMP::QSNMPData::QSNMPData(SNMPDataType type, void *value, size_t length)
 QtNetSNMP::QSNMPData::QSNMPData(const QSNMPData& snmpData)
 {
     initValue();
-
     *this = snmpData;
 }
 
@@ -41,7 +40,6 @@ QtNetSNMP::QSNMPData::~QSNMPData()
 
 QtNetSNMP::QSNMPData& QtNetSNMP::QSNMPData::operator=(const QSNMPData& snmpData)
 {
-    delValue();
     setValue(snmpData._type, snmpData._value, snmpData._length);
 
     return *this;

@@ -39,8 +39,8 @@ namespace QtNetSNMP
         QSNMPObject(const QSNMPObject& obj);
         QSNMPObject& operator=(const QSNMPObject& obj);
         ~QSNMPObject();
-        QSNMPObject *objID();
-        void setObjID(QSNMPObject *objID);
+        QSNMPOID *objID();
+        void setObjID(QSNMPOID *objID);
         QSNMPData *data();
         void setData(QSNMPData *data);
         const QString& name() const;

@@ -22,12 +22,16 @@
 #include "qsnmpoid.h"
 #include "qsnmpdata.h"
 
-QtNetSNMP::QSNMPObject::QSNMPObject(QSNMPOID *objID, QSNMPData *data)
+QtNetSNMP::QSNMPObject::QSNMPObject(QSNMPOID *objID, QSNMPData *data) : _objID(objID), _data(data)
 {
+    _name = _description = "";
+    _status = MIBStatusDeprecated;
+    _access = MIBAccessNotAccessible;
 }
 
 QtNetSNMP::QSNMPObject::QSNMPObject(const QSNMPObject& obj)
 {
+    *this = obj;
 }
 
 QtNetSNMP::QSNMPObject& QtNetSNMP::QSNMPObject::operator=(const QSNMPObject& obj)
@@ -37,58 +41,72 @@ QtNetSNMP::QSNMPObject& QtNetSNMP::QSNMPObject::operator=(const QSNMPObject& obj
 
 QtNetSNMP::QSNMPObject::~QSNMPObject()
 {
+    delete _objID;
+    delete _data;
 }
 
-QtNetSNMP::QSNMPObject *QtNetSNMP::QSNMPObject::objID()
+QtNetSNMP::QSNMPOID *QtNetSNMP::QSNMPObject::objID()
 {
-    return 0;
+    return _objID;
 }
 
-void QtNetSNMP::QSNMPObject::setObjID(QSNMPObject *objID)
+void QtNetSNMP::QSNMPObject::setObjID(QSNMPOID *objID)
 {
+    if(_objID)
+        delete _objID;
+
+    _objID = objID;
 }
 
 QtNetSNMP::QSNMPData *QtNetSNMP::QSNMPObject::data()
 {
-    return 0;
+    return _data;
 }
 
 void QtNetSNMP::QSNMPObject::setData(QSNMPData *data)
 {
+    if(_data)
+        delete _data;
+
+    _data = data;
 }
 
 const QString& QtNetSNMP::QSNMPObject::name() const
 {
-    return QString();
+    return _name;
 }
 
 void QtNetSNMP::QSNMPObject::setName(const QString& name)
 {
+    _name = name;
 }
 
 QtNetSNMP::MIBStatus QtNetSNMP::QSNMPObject::status() const
 {
-    return MIBStatusMandatory;
+    return _status;
 }
 
 void QtNetSNMP::QSNMPObject::setStatus(MIBStatus status)
 {
+    _status = status;
 }
 
 QtNetSNMP::MIBAccess QtNetSNMP::QSNMPObject::access() const
 {
-    return MIBAccessReadOnly;
+    return _access;
 }
 
 void QtNetSNMP::QSNMPObject::setAccess(MIBAccess access)
 {
+    _access = access;
 }
 
 const QString& QtNetSNMP::QSNMPObject::description() const
 {
-    return QString();
+    return _description;
 }
 
 void QtNetSNMP::QSNMPObject::setDescription(const QString& description)
 {
+    _description = description;
 }
