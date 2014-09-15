@@ -32,6 +32,7 @@ namespace QtNetSNMP
     {
         friend std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
     public:
+        QSNMPOID(oid *numOID, size_t numOIDLength);
         QSNMPOID(QVector<int> *numOID);
         QSNMPOID(const QString& textOID);
         QSNMPOID(const QSNMPOID& snmpOID);

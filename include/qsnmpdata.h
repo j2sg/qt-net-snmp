@@ -29,20 +29,19 @@ namespace QtNetSNMP
     class QSNMPData
     {
     public:
-        QSNMPData(SNMPDataType type = SNMPDataUnknown, void *value = 0, size_t length = 0);
+        QSNMPData(SNMPDataType type, void *value = 0, size_t length = sizeof(char));
         QSNMPData(const QSNMPData& snmpData);
         ~QSNMPData();
         QSNMPData& operator=(const QSNMPData& snmpData);
         SNMPDataType type() const;
-        void setType(SNMPDataType type);
-
         void *value() const;
-        void setValue(void *value);
-        void setValue(const SNMPValue& value);
         size_t length() const;
-        void setLength(size_t length);
-        const QString& toString() const;
+        void setValue(SNMPDataType type, void *value, size_t length = sizeof(char));
+        void setValue(SNMPDataType type, const SNMPValue& value, size_t length = sizeof(char));
     private:
+        void initValue(SNMPDataType type = SNMPDataUnknown);
+        void delValue();
+
         SNMPDataType _type;
         SNMPValue _value;
         size_t _length;

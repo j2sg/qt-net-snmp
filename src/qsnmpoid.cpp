@@ -21,6 +21,11 @@
 #include "qsnmpoid.h"
 #include <QVector>
 
+QtNetSNMP::QSNMPOID::QSNMPOID(oid *numOID, size_t numOIDLength)
+{
+}
+
+
 QtNetSNMP::QSNMPOID::QSNMPOID(QVector<int> *numOID)
 {
 }
