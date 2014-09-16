@@ -26,6 +26,8 @@
 
 #include "qsnmpcore.h"
 #include "qsnmpobject.h"
+#include "qsnmpdata.h"
+#include "qsnmpoid.h"
 
 void QtNetSNMP::QSNMPCore::setPort(unsigned short port)
 {
@@ -108,66 +110,79 @@ QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version,
 
     if(!(openedSession = snmp_open(&session))) {
         SOCK_CLEANUP;
-        //throw QSNMPSessionException(session, "SNMP Session :: Error on session openning");
+        throw QSNMPException("QSNMPCore :: Create Session :: Open Session");
     }
 
     return openedSession;
 }
 
-QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, const QVector<QSNMPObject *>& objs, unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
+QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, QVector<QSNMPObject *>& objs, unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
 {
-    /**SNMPPDU *pdu;
+    SNMPPDU *pdu;
 
     if(type != SNMPPDUGet && type != SNMPPDUGetNext && type != SNMPPDUGetBulk && type != SNMPPDUSet)
-        throw QSNMPException("SNMP PDU :: Error during PDU creation :: Unknown type");
+        throw QSNMPException("SNMP PDU :: PDU creation :: Unknown type");
 
     if(objs.empty())
-        throw QSNMPException("SNMP PDU :: Error during PDU creation :: No object specified");
+        throw QSNMPException("QSNMPCore :: Create PDU :: SNMP objects vector is empty");
 
     pdu = snmp_pdu_create(type);
 
     foreach (QSNMPObject *object, objs) {
         if(type == SNMPPDUSet) {
+            if(object -> data() -> type() == SNMPDataUnknown)
+                throw QSNMPException("QSNMPCore :: Create PDU :: Unknown SNMP object data type");
 
-        }
-    }
-    for(std::vector<QSNMPObject *>::const_iterator vi = oids.begin(); vi != oids.end(); vi++) {
-        if(type == SNMPPDUSet) { // Aniadimos a la PDU el valor correspondiente al k-esimo OID
-            if((*vi) -> data() -> type() == SNMPDataUnknown)
-                throw SNMPOIDException((*vi) -> strOID(), "Error en la creacion de la PDU. Operacion SNMPSet sobre OID de tipo desconocido.");
+            char dataType;
 
-            char dataType; // Tipo de dato
-
-            switch((*vi) -> data() -> type()) {
-            case SNMPDataInteger:     dataType = 'i'; break;
-            case SNMPDataUnsigned:    dataType = 'u'; break;
-            case SNMPDataBits:        dataType = 'b'; break;
-            case SNMPDataCounter:     dataType = 'c'; break;
-            case SNMPDataTimeTicks:   dataType = 't'; break;
-            case SNMPDataCounter64:   dataType = 'C'; break;
-            case SNMPDataBitString:   dataType = 'b'; break;
-            case SNMPDataOctetString: dataType = 's'; break;
-            case SNMPDataIPAddress:   dataType = 'a'; break;
-            case SNMPDataObjectId:    dataType = 'o'; break;
-            default:                  dataType = '=';
+            switch(object -> data() -> type()) {
+            case SNMPDataInteger:
+                dataType = 'i';
+                break;
+            case SNMPDataUnsigned:
+                dataType = 'u';
+                break;
+            case SNMPDataBits:
+                dataType = 'b';
+                break;
+            case SNMPDataCounter:
+                dataType = 'c';
+                break;
+            case SNMPDataTimeTicks:
+                dataType = 't';
+                break;
+            case SNMPDataCounter64:
+                dataType = 'C';
+                break;
+            case SNMPDataBitString:
+                dataType = 'b';
+                break;
+            case SNMPDataOctetString:
+                dataType = 's';
+                break;
+            case SNMPDataIPAddress:
+                dataType = 'a';
+                break;
+            case SNMPDataObjectId:
+                dataType = 'o';
+                break;
+            default:
+                dataType = '=';
             }
 
             // Aniadimos a la PDU el (tipo, valor) correspondiente al k-esimo OID
-            snmp_add_var(pdu, (*vi) -> parseOID(), (*vi) -> parseOIDLength(), dataType, (const char *) (*vi) -> data() -> value());
+            snmp_add_var(pdu, object -> objID() -> numOID() -> data(), object -> objID() -> numOID() -> size(), dataType, static_cast<const char *>(object -> data() -> value()));
 
         } else // Aniadimos a la PDU el valor nulo correspondiente al k-esimo OID
-            snmp_add_null_var(pdu, (*vi) -> parseOID(), (*vi) -> parseOIDLength());
+            snmp_add_null_var(pdu, object -> objID() -> numOID() -> data(), object -> objID() -> numOID() -> size());
     }
 
-    // Si la PDU es de tipo GET BULK los parametros nrepeaters y mrepetitions
-    // se almacenan en los campos errstat y errindex respectivamente.
     if(type == SNMPPDUGetBulk) {
         pdu -> errstat = nrepeaters;
         pdu -> errindex = mrepetitions;
     }
 
-    return pdu;*/
-    return 0;
+    return pdu;
 }
 
 QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::sendPDU(SNMPSession *session, SNMPPDU *pdu) throw(QSNMPException)

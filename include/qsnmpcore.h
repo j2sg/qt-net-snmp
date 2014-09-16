@@ -140,7 +140,7 @@ namespace QtNetSNMP
          * @param mrepetitions number of objects that should be returned for all the repeating OIDs
          * @return pointer to SNMPPDU struct
          */
-        SNMPPDU *createPDU(SNMPPDUType type, const QVector<QSNMPObject *>& objs, unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
+        SNMPPDU *createPDU(SNMPPDUType type, QVector<QSNMPObject *>& objs, unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
 
 
         /**

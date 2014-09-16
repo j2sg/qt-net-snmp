@@ -32,22 +32,19 @@ namespace QtNetSNMP
     {
         friend std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
     public:
+        QSNMPOID(QVector<oid> *numOID);
         QSNMPOID(oid *numOID, size_t numOIDLength);
-        QSNMPOID(QVector<int> *numOID);
         QSNMPOID(const QString& textOID);
         QSNMPOID(const QSNMPOID& snmpOID);
         QSNMPOID& operator=(const QSNMPOID& snmpOID);
-        QSNMPOID& operator+(int n);
+        QSNMPOID operator+(int n);
         ~QSNMPOID();
-        const QVector<int> *numOID() const;
-        void setNumOID(QVector<int> *numOID) throw(QSNMPException);
-        const QString& textOID() const;
+        const QVector<oid> *numOID() const;
+        void setNumOID(QVector<oid> *numOID) throw(QSNMPException);
+        QString textOID() const;
         void setTextOID(const QString& textOID) throw(QSNMPException);
     private:
-        QVector<int> *toNumeric(const QString& textOID);
-        QString toTextual();
-
-        QVector<int> *_numOID;
+        QVector<oid> *_numOID;
     };
 
     std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
