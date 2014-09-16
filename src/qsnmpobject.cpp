@@ -36,13 +36,30 @@ QtNetSNMP::QSNMPObject::QSNMPObject(const QSNMPObject& obj)
 
 QtNetSNMP::QSNMPObject& QtNetSNMP::QSNMPObject::operator=(const QSNMPObject& obj)
 {
+    if(_objID)
+        delete _objID;
+
+    //_objID = (obj.objID() != 0) ? new QSNMPOID(*obj.objID()) : 0;
+
+    if(_data)
+        delete _data;
+
+    //_data = (obj.data() != 0) ? new QSNMPData(*obj.data()) : 0;
+
+    _name = obj._name;
+    _status = obj._status;
+    _access = obj._access;
+    _description = obj._description;
+
     return *this;
 }
 
 QtNetSNMP::QSNMPObject::~QSNMPObject()
 {
-    delete _objID;
-    delete _data;
+    if(_objID)
+        delete _objID;
+    if(_data)
+        delete _data;
 }
 
 QtNetSNMP::QSNMPOID *QtNetSNMP::QSNMPObject::objID()

@@ -34,6 +34,7 @@ namespace QtNetSNMP
      */
     class QSNMPObject
     {
+        friend std::ostream& operator<<(std::ostream& os, const QSNMPObject& obj);
     public:
         QSNMPObject(QSNMPOID *objID = 0, QSNMPData *data = 0);
         QSNMPObject(const QSNMPObject& obj);

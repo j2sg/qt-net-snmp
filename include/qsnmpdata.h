@@ -28,6 +28,7 @@ namespace QtNetSNMP
 {
     class QSNMPData
     {
+        friend std::ostream& operator<<(std::ostream& os, const QSNMPData& snmpData);
     public:
         QSNMPData(SNMPDataType type, void *value = 0, size_t length = sizeof(char));
         QSNMPData(const QSNMPData& snmpData);
