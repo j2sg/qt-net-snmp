@@ -4,9 +4,9 @@ std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)
 {
     QChar type;
     QString value;
-    QString length(static_cast<int>(snmpData.length()));
+    QString length(static_cast<int>(snmpData._length));
 
-    switch(snmpData.type()) {
+    switch(snmpData._type) {
     case SNMPDataInteger:
         type = 'i';
         break;
@@ -46,25 +46,25 @@ std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)
     if(!valuePtr)
         value = QString("Null");
     else {
-        switch(snmpData.type()) {
+        switch(snmpData._type) {
         case SNMPDataInteger:
         case SNMPDataUnsigned:
         case SNMPDataBits:
         case SNMPDataCounter:
         case SNMPDataTimeTicks:
-            value = QString::number(*static_cast<long *>(snmpData.value()));
+            value = QString::number(*static_cast<long *>(valuePtr));
             break;
         case SNMPDataCounter64:
-            value = QString("%1 %2").arg(static_cast<SNMPCounter64 *>(snmpData.value()) -> high)
-                                    .arg(static_cast<SNMPCounter64 *>(snmpData.value()) -> low);
+            value = QString("%1 %2").arg(static_cast<SNMPCounter64 *>(valuePtr) -> high)
+                                    .arg(static_cast<SNMPCounter64 *>(valuePtr) -> low);
             break;
         case SNMPDataBitString:
         case SNMPDataOctetString:
         case SNMPDataIPAddress:
-            value = QString(*static_cast<unsigned char *>(snmpData.value()));
+            value = QString(*static_cast<unsigned char *>(valuePtr));
             break;
         case SNMPDataObjectId:
-            value = QSNMPOID(static_cast<oid *>(snmpData.value()), snmpData.length()).textOID();
+            value = QSNMPOID(static_cast<oid *>(valuePtr), snmpData._length).textOID();
             break;
         default:
             value = QString("=");
@@ -74,15 +74,14 @@ std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)
     return os << QString("t:%1 v:%2 l:%3").arg(type).arg(value).arg(length);
 }
 
-std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPObject& obj)
+std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPObject& snmpObj)
 {
-    //QSNMPOID *snmpOID = const_cast<QSNMPOID *>(obj.objID());
-    //QSNMPData *snmpData = const_cast<QSNMPData *>(obj.data());
+    if(snmpObj._objID)
+        os << *snmpObj._objID << " := ";
+    if(snmpObj._data)
+        os << *snmpObj._data;
 
-    //return os << *snmpOID << " " << *snmpData;
     return os;
-
-    //return os << ((snmpOID != 0) ? *snmpOID : "") << " := " << ((snmpData != 0) ? *snmpData : "");
 }
 
 std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPOID& snmpOID)

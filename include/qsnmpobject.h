@@ -34,11 +34,11 @@ namespace QtNetSNMP
      */
     class QSNMPObject
     {
-        friend std::ostream& operator<<(std::ostream& os, const QSNMPObject& obj);
+        friend std::ostream& operator<<(std::ostream& os, const QSNMPObject& snmpObj);
     public:
         QSNMPObject(QSNMPOID *objID = 0, QSNMPData *data = 0);
-        QSNMPObject(const QSNMPObject& obj);
-        QSNMPObject& operator=(const QSNMPObject& obj);
+        QSNMPObject(const QSNMPObject& snmpObj);
+        QSNMPObject& operator=(const QSNMPObject& snmpObj);
         ~QSNMPObject();
         QSNMPOID *objID();
         void setObjID(QSNMPOID *objID);

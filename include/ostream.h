@@ -8,7 +8,7 @@
 namespace QtNetSNMP
 {
     std::ostream& operator<<(std::ostream& os, const QSNMPData& snmpData);
-    std::ostream& operator<<(std::ostream& os, const QSNMPObject& obj);
+    std::ostream& operator<<(std::ostream& os, const QSNMPObject& snmpObj);
     std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
 }
 

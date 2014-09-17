@@ -29,27 +29,27 @@ QtNetSNMP::QSNMPObject::QSNMPObject(QSNMPOID *objID, QSNMPData *data) : _objID(o
     _access = MIBAccessNotAccessible;
 }
 
-QtNetSNMP::QSNMPObject::QSNMPObject(const QSNMPObject& obj)
+QtNetSNMP::QSNMPObject::QSNMPObject(const QSNMPObject& snmpObj)
 {
-    *this = obj;
+    *this = snmpObj;
 }
 
-QtNetSNMP::QSNMPObject& QtNetSNMP::QSNMPObject::operator=(const QSNMPObject& obj)
+QtNetSNMP::QSNMPObject& QtNetSNMP::QSNMPObject::operator=(const QSNMPObject& snmpObj)
 {
     if(_objID)
         delete _objID;
 
-    //_objID = (obj.objID() != 0) ? new QSNMPOID(*obj.objID()) : 0;
+    _objID = (snmpObj._objID != 0) ? new QSNMPOID(*snmpObj._objID) : 0;
 
     if(_data)
         delete _data;
 
-    //_data = (obj.data() != 0) ? new QSNMPData(*obj.data()) : 0;
+    _data = (snmpObj._data != 0) ? new QSNMPData(*snmpObj._data) : 0;
 
-    _name = obj._name;
-    _status = obj._status;
-    _access = obj._access;
-    _description = obj._description;
+    _name = snmpObj._name;
+    _status = snmpObj._status;
+    _access = snmpObj._access;
+    _description = snmpObj._description;
 
     return *this;
 }
