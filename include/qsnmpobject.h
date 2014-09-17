@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file qsnmpobject.h
+* @brief QSNMPObject class definition
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #ifndef QSNMPOBJECT_H
 #define QSNMPOBJECT_H
 

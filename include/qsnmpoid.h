@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file qsnmpoid.h
+* @brief QSNMPOID class definition
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #ifndef QSNMPOID_H
 #define QSNMPOID_H
 

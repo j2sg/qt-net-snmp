@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file qsnmpobject.cpp
+* @brief Definitions for Atributes and Methods of QSNMPObject class
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #include "qsnmpobject.h"
 #include "qsnmpoid.h"
 #include "qsnmpdata.h"

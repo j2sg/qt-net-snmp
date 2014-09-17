@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file qsnmpdata.cpp
+* @brief Definitions for Atributes and Methods of QSNMPData class
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #include "qsnmpdata.h"
 #include <algorithm>
 

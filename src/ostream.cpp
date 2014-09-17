@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file ostream.cpp
+* @brief Definitions for overloaded insertion operators to SNMP Classes
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #include "ostream.h"
 
 std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)

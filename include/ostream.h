@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file ostream.h
+* @brief Declarations of overloaded insertion operators to SNMP Classes
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #ifndef OSTREAM_H
 #define OSTREAM_H
 
@@ -27,8 +33,28 @@
 
 namespace QtNetSNMP
 {
+    /**
+     * @brief Overloaded insertion operator to QSNMPData class
+     * @param os Output stream reference
+     * @param snmpData QSNMPData instance reference
+     * @return Output stream reference to chain calls
+     */
     std::ostream& operator<<(std::ostream& os, const QSNMPData& snmpData);
+
+    /**
+     * @brief Overloaded insertion operator to QSNMPObject class
+     * @param os Output stream reference
+     * @param snmpObj QSNMPObject instance reference
+     * @return Output stream reference to chain calls
+     */
     std::ostream& operator<<(std::ostream& os, const QSNMPObject& snmpObj);
+
+    /**
+     * @brief Overloaded insertion operator to QSNMPOID class
+     * @param os Output stream reference
+     * @param snmpOID QSNMPOID instance reference
+     * @return Output stream reference to chain calls
+     */
     std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
 }
 

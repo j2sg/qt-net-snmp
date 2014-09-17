@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file qsnmpoid.cpp
+* @brief Definitions for Atributes and Methods of QSNMPOID class
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #include "qsnmpoid.h"
 #include <QRegExp>
 #include <QStringList>

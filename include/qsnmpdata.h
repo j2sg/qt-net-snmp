@@ -18,6 +18,12 @@
  *
  **/
 
+/**
+* @file qsnmpdata.h
+* @brief QSNMPData class definition
+* @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
+*/
+
 #ifndef QSNMPDATA_H
 #define QSNMPDATA_H
 
