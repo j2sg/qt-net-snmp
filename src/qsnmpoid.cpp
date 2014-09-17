@@ -47,15 +47,18 @@ QtNetSNMP::QSNMPOID::QSNMPOID(const QSNMPOID& snmpOID)
 
 QtNetSNMP::QSNMPOID& QtNetSNMP::QSNMPOID::operator=(const QSNMPOID& snmpOID)
 {
-    setNumOID(const_cast<QVector<oid> *>(snmpOID.numOID()));
+    setNumOID(snmpOID._numOID);
 
     return *this;
 }
 
 QtNetSNMP::QSNMPOID QtNetSNMP::QSNMPOID::operator+(int n)
 {
-    //return (QSNMPOID(*this).numOID()) -> append(static_cast<oid>(n));
-    return QSNMPOID(0, 0);
+    QSNMPOID resOID(*this);
+
+    resOID.numOID() -> append(static_cast<oid>(n));
+
+    return resOID;
 }
 
 QtNetSNMP::QSNMPOID::~QSNMPOID()
@@ -64,7 +67,7 @@ QtNetSNMP::QSNMPOID::~QSNMPOID()
         delete _numOID;
 }
 
-const QVector<oid> *QtNetSNMP::QSNMPOID::numOID() const
+QVector<oid> *QtNetSNMP::QSNMPOID::numOID()
 {
     return _numOID;
 }

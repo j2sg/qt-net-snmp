@@ -39,7 +39,7 @@ namespace QtNetSNMP
         QSNMPOID& operator=(const QSNMPOID& snmpOID);
         QSNMPOID operator+(int n);
         ~QSNMPOID();
-        const QVector<oid> *numOID() const;
+        QVector<oid> *numOID();
         void setNumOID(QVector<oid> *numOID) throw(QSNMPException);
         QString textOID() const;
         void setTextOID(const QString& textOID) throw(QSNMPException);
