@@ -82,7 +82,7 @@ void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, 
 
     snmp_free_pdu(responsePDU);
     snmp_close(session);
-    SOCK_CLEANUP;                 // Free resources on Win32. (No effect on Unix systems)
+    SOCK_CLEANUP; // Free resources on Win32. (No effect on Unix systems)
 }
 
 QtNetSNMP::QSNMPCore::QSNMPCore(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
@@ -96,7 +96,7 @@ QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version,
     SNMPSession *openedSession;
 
     if(version != SNMPv1 && version != SNMPv2)
-        throw QSNMPException("SNMP Session :: Error during initializacion :: Version not supported");
+        throw QSNMPException("QSNMPCore :: Create Session :: Version not supported");
 
     snmp_sess_init(&session);
     session.remote_port = _port;
@@ -121,7 +121,7 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, QVector<QS
     SNMPPDU *pdu;
 
     if(type != SNMPPDUGet && type != SNMPPDUGetNext && type != SNMPPDUGetBulk && type != SNMPPDUSet)
-        throw QSNMPException("SNMP PDU :: PDU creation :: Unknown type");
+        throw QSNMPException("QSNMPCore :: Create PDU :: Unknown PDU type");
 
     if(objs.empty())
         throw QSNMPException("QSNMPCore :: Create PDU :: SNMP objects vector is empty");
@@ -131,7 +131,7 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, QVector<QS
     foreach (QSNMPObject *object, objs) {
         if(type == SNMPPDUSet) {
             if(object -> data() -> type() == SNMPDataUnknown)
-                throw QSNMPException("QSNMPCore :: Create PDU :: Unknown SNMP object data type");
+                throw QSNMPException("QSNMPCore :: Create PDU :: Unknown SNMP data type");
 
             char dataType;
 
@@ -170,10 +170,9 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, QVector<QS
                 dataType = '=';
             }
 
-            // Aniadimos a la PDU el (tipo, valor) correspondiente al k-esimo OID
             snmp_add_var(pdu, object -> objID() -> numOID() -> data(), object -> objID() -> numOID() -> size(), dataType, static_cast<const char *>(object -> data() -> value()));
 
-        } else // Aniadimos a la PDU el valor nulo correspondiente al k-esimo OID
+        } else
             snmp_add_null_var(pdu, object -> objID() -> numOID() -> data(), object -> objID() -> numOID() -> size());
     }
 
@@ -187,45 +186,38 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, QVector<QS
 
 QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::sendPDU(SNMPSession *session, SNMPPDU *pdu) throw(QSNMPException)
 {
-    /*SNMPPDU *response;  // PDU SNMP de respuesta
-    int status;         // Estado de la recepcion del mensaje
+    SNMPPDU *response;
+    int status;
 
-    // Enviamos la PDU SNMP de peticion
     status = snmp_synch_response(session, pdu, &response);
 
-    // Evaluamos la recepcion del mensaje de respuesta
-    if(status == STAT_SUCCESS) // Recibido con exito
-        if(response -> errstat == SNMP_ERR_NOERROR) // Mensaje de respuesta sin errores
+    if(status == STAT_SUCCESS)
+        if(response -> errstat == SNMP_ERR_NOERROR)
             return response;
-        else // Mensaje de respuesta con errores
-            throw SNMPPacketException(snmp_errstring(response -> errstat), "Error en la PDU de respuesta");
-    else if(status == STAT_TIMEOUT) // No hay respuesta del agente
-        throw SNMPException("Timeout, no hay respuesta del agente");
-    else // Error de sesion (comunidad no valida, acceso no permitido, etc)
-        throw SNMPSessionException(*session, "Error en sesion SNMP");*/
-    return 0;
+        else
+            throw QSNMPException("QSNMPCore :: Send PDU :: Responde PDU has errors");
+    else if(status == STAT_TIMEOUT)
+        throw QSNMPException("QSNMPCore :: Send PDU :: Timeout. No response from agent");
+    else
+        throw QSNMPException("QSNMPCore :: Send PDU :: SNMP Session error");
 }
 
 void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, QVector<QSNMPObject *>& objs)
 {
-    /*if(pdu->command != SNMPPDUResponse)
+    if(pdu->command != SNMPPDUResponse)
         return;
 
-    // Liberamos memoria y borramos la lista de OIDs
-    for(std::vector<SNMPOID *>::iterator vi = oids.begin();vi != oids.end(); ++vi)
-        delete *vi;
+    foreach(QSNMPObject *snmpObj, objs)
+        delete snmpObj;
 
-    oids.clear();
+    objs.clear();
 
-    // Iteramos por la lista de variables de la PDU de
-    // respuesta estableciendo el (tipo, valor) de cada OID
     for(SNMPVariableList *vl = pdu -> variables; vl; vl = vl -> next_variable) {
-        SNMPOID *object = new SNMPOID(vl -> name, vl -> name_length);
+        QSNMPOID *snmpOID = new QSNMPOID(vl -> name, vl -> name_length);
+        QSNMPData *snmpData = new QSNMPData;
 
-        object -> data() -> setType((SNMPDataType) vl -> type);
-        object -> data() -> setLength(vl -> val_len);
-        object -> data() -> setValue((SNMPValue) vl -> val);
+        snmpData -> setValue(static_cast<SNMPDataType>(vl->type), static_cast<SNMPValue>(vl->val), vl->val_len);
 
-        oids.push_back(object);
-    }*/
+        objs.append(new QSNMPObject(snmpOID, snmpData));
+    }
 }
