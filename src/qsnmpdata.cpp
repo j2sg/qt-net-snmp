@@ -39,11 +39,6 @@ QtNetSNMP::QSNMPData::QSNMPData(const QSNMPData& snmpData)
     *this = snmpData;
 }
 
-QtNetSNMP::QSNMPData::~QSNMPData()
-{
-    delValue();
-}
-
 QtNetSNMP::QSNMPData& QtNetSNMP::QSNMPData::operator=(const QSNMPData& snmpData)
 {
     setValue(snmpData._type, snmpData._value, snmpData._length);
@@ -51,46 +46,9 @@ QtNetSNMP::QSNMPData& QtNetSNMP::QSNMPData::operator=(const QSNMPData& snmpData)
     return *this;
 }
 
-QtNetSNMP::SNMPDataType QtNetSNMP::QSNMPData::type() const
+QtNetSNMP::QSNMPData::~QSNMPData()
 {
-    return _type;
-}
-
-void *QtNetSNMP::QSNMPData::value() const
-{
-    void *ptr;
-
-    switch(_type) {
-        case SNMPDataInteger:
-        case SNMPDataUnsigned:
-        case SNMPDataBits:
-        case SNMPDataCounter:
-        case SNMPDataTimeTicks:
-            ptr = _value.integer;
-            break;
-        case SNMPDataCounter64:
-            ptr = _value.counter64;
-            break;
-        case SNMPDataBitString:
-            ptr = _value.bitstring;
-            break;
-        case SNMPDataOctetString:
-        case SNMPDataIPAddress:
-            ptr = _value.string;
-            break;
-        case SNMPDataObjectId:
-            ptr = _value.objid;
-            break;
-        default:
-            ptr = 0;
-        }
-
-    return ptr;
-}
-
-size_t QtNetSNMP::QSNMPData::length() const
-{
-    return _length;
+    delValue();
 }
 
 void QtNetSNMP::QSNMPData::setValue(SNMPDataType type, void *value, size_t length)
@@ -166,6 +124,48 @@ void QtNetSNMP::QSNMPData::setValue(SNMPDataType type, const SNMPValue& value, s
         default:
             initValue();
         }
+}
+
+QtNetSNMP::SNMPDataType QtNetSNMP::QSNMPData::type() const
+{
+    return _type;
+}
+
+void *QtNetSNMP::QSNMPData::value() const
+{
+    void *ptr;
+
+    switch(_type) {
+        case SNMPDataInteger:
+        case SNMPDataUnsigned:
+        case SNMPDataBits:
+        case SNMPDataCounter:
+        case SNMPDataTimeTicks:
+            ptr = _value.integer;
+            break;
+        case SNMPDataCounter64:
+            ptr = _value.counter64;
+            break;
+        case SNMPDataBitString:
+            ptr = _value.bitstring;
+            break;
+        case SNMPDataOctetString:
+        case SNMPDataIPAddress:
+            ptr = _value.string;
+            break;
+        case SNMPDataObjectId:
+            ptr = _value.objid;
+            break;
+        default:
+            ptr = 0;
+        }
+
+    return ptr;
+}
+
+size_t QtNetSNMP::QSNMPData::length() const
+{
+    return _length;
 }
 
 void QtNetSNMP::QSNMPData::initValue(SNMPDataType type)

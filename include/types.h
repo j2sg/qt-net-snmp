@@ -92,7 +92,7 @@ namespace QtNetSNMP
     } MIBAccess;
 
     /**
-     * @brief Net-SNMP data
+     * @brief Net-SNMP data value
      * More details in http://www.net-snmp.org/dev/agent/unionnetsnmp__vardata.html
      */
     typedef netsnmp_vardata SNMPValue;

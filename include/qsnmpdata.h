@@ -32,25 +32,104 @@
 
 namespace QtNetSNMP
 {
+    /**
+     * @brief QSNMPData class that implements a SNMP data
+     */
     class QSNMPData
     {
+        /**
+         * @brief Overloaded insertion operator to QSNMPData class
+         * @param os Output stream reference
+         * @param snmpData QSNMPData instance reference
+         * @return Output stream reference to chain calls
+         */
         friend std::ostream& operator<<(std::ostream& os, const QSNMPData& snmpData);
     public:
+        /**
+         * @brief QSNMPData constructor
+         * @param type SNMP data type
+         * @param value SNMP data value
+         * @param length SNMP data length
+         */
         QSNMPData(SNMPDataType type = SNMPDataUnknown, void *value = 0, size_t length = sizeof(char));
+
+        /**
+         * @brief QSNMPData copy constructor
+         * @param snmpData QSNMPData instance
+         */
         QSNMPData(const QSNMPData& snmpData);
-        ~QSNMPData();
+
+        /**
+         * @brief overloaded assignment operator
+         * @param snmpData QSNMPData instance
+         * @return reference to own object instance
+         */
         QSNMPData& operator=(const QSNMPData& snmpData);
-        SNMPDataType type() const;
-        void *value() const;
-        size_t length() const;
+
+        /**
+         * @brief QSNMPData destructor
+         */
+        ~QSNMPData();
+
+        /**
+         * @brief Set SNMP data type, value and length
+         * @param type SNMP data type
+         * @param value SNMP data value
+         * @param length SNMP data length
+         */
         void setValue(SNMPDataType type, void *value, size_t length = sizeof(char));
+
+        /**
+         * @brief Set SNMP data type, value and length
+         * @param type SNMP data type
+         * @param value Net-SNMP data value
+         * @param length SNMP data length
+         */
         void setValue(SNMPDataType type, const SNMPValue& value, size_t length = sizeof(char));
+
+        /**
+         * @brief Get SNMP data type
+         * @return SNMP data type
+         */
+        SNMPDataType type() const;
+
+        /**
+         * @brief Get SNMP data value
+         * @return pointer to SNMP data value
+         */
+        void *value() const;
+
+        /**
+         * @brief Get SNMP data length
+         * @return SNMP data length
+         */
+        size_t length() const;
+
     private:
+        /**
+         * @brief Initialize SNMP data atributes
+         * @param type SNMP data type
+         */
         void initValue(SNMPDataType type = SNMPDataUnknown);
+
+        /**
+         * @brief Free SNMP data resources
+         */
         void delValue();
 
+        /**
+         * @brief _type SNMP data type
+         */
         SNMPDataType _type;
+
+        /**
+         * @brief _value SNMP data value
+         */
         SNMPValue _value;
+
+        /**
+         * @brief _length SNMP data length
+         */
         size_t _length;
     };
 }
