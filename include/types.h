@@ -91,16 +91,40 @@ namespace QtNetSNMP
         MIBAccessNotAccessible = MIB_ACCESS_NOACCESS
     } MIBAccess;
 
+    /**
+     * @brief Net-SNMP data
+     * More details in http://www.net-snmp.org/dev/agent/unionnetsnmp__vardata.html
+     */
     typedef netsnmp_vardata SNMPValue;
 
+    /**
+     * @brief Net-SNMP 64 bits counter
+     * More details in http://www.net-snmp.org/dev/agent/structcounter64.html
+     */
     typedef struct counter64 SNMPCounter64;
 
+    /**
+     * @brief Net-SNMP session with agent
+     * More details in http://www.net-snmp.org/dev/agent/structsnmp__session.html
+     */
     typedef netsnmp_session SNMPSession;
 
+    /**
+     * @brief Net-SNMP request/response PDU
+     * More details in http://www.net-snmp.org/dev/agent/structsnmp__pdu.html
+     */
     typedef struct snmp_pdu SNMPPDU;
 
+    /**
+     * @brief Net-SNMP variable list
+     * More details in http://www.net-snmp.org/dev/agent/structvariable__list.html
+     */
     typedef netsnmp_variable_list SNMPVariableList;
 
+    /**
+     * @brief Net-SNMP MIB tree
+     * More details in http://www.net-snmp.org/dev/agent/structtree.html
+     */
     typedef struct tree SNMPMIBTree;
 }
 
