@@ -73,11 +73,6 @@ QtNetSNMP::QSNMPOID::~QSNMPOID()
         delete _numOID;
 }
 
-QVector<oid> *QtNetSNMP::QSNMPOID::numOID()
-{
-    return _numOID;
-}
-
 void QtNetSNMP::QSNMPOID::setNumOID(QVector<oid> *numOID) throw(QSNMPException)
 {
     if(_numOID)
@@ -87,17 +82,9 @@ void QtNetSNMP::QSNMPOID::setNumOID(QVector<oid> *numOID) throw(QSNMPException)
     qCopy(numOID -> begin(), numOID -> end(), _numOID -> begin());
 }
 
-QString QtNetSNMP::QSNMPOID::textOID() const
+QVector<oid> *QtNetSNMP::QSNMPOID::numOID()
 {
-    QString str;
-
-    for(int k = 0;k < _numOID -> size();++k) {
-        str.append(QString(static_cast<int>(_numOID -> at(k))));
-        if(k != _numOID -> size() - 1)
-            str.append(".");
-    }
-
-    return str;
+    return _numOID;
 }
 
 void QtNetSNMP::QSNMPOID::setTextOID(const QString& textOID) throw(QSNMPException)
@@ -114,4 +101,17 @@ void QtNetSNMP::QSNMPOID::setTextOID(const QString& textOID) throw(QSNMPExceptio
 
     foreach(QString str, textOID.split("."))
         _numOID -> append(str.toInt());
+}
+
+QString QtNetSNMP::QSNMPOID::textOID() const
+{
+    QString str;
+
+    for(int k = 0;k < _numOID -> size();++k) {
+        str.append(QString(static_cast<int>(_numOID -> at(k))));
+        if(k != _numOID -> size() - 1)
+            str.append(".");
+    }
+
+    return str;
 }

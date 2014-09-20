@@ -32,38 +32,139 @@
 
 namespace QtNetSNMP
 {
+    // Forward declarations
     class QSNMPOID;
     class QSNMPData;
 
     /**
-     * @brief QSNMPObject class
+     * @brief QSNMPObject class that implements a SNMP object
      */
     class QSNMPObject
     {
         friend std::ostream& operator<<(std::ostream& os, const QSNMPObject& snmpObj);
     public:
+        /**
+         * @brief QSNMPObject constructor
+         * @param objID SNMP OID
+         * @param data SNMP data
+         */
         QSNMPObject(QSNMPOID *objID = 0, QSNMPData *data = 0);
+
+        /**
+         * @brief QSNMPObject copy constructor
+         * @param snmpObj QSNMPObject instance
+         */
         QSNMPObject(const QSNMPObject& snmpObj);
+
+        /**
+         * @brief overloaded assignment operator
+         * @param snmpObj QSNMPObject instance
+         * @return reference to own object instance
+         */
         QSNMPObject& operator=(const QSNMPObject& snmpObj);
+
+        /**
+         * @brief QSNMPObject destructor
+         */
         ~QSNMPObject();
-        QSNMPOID *objID();
+
+        /**
+         * @brief Set SNMP OID
+         * @param objID SNMP OID
+         *
+         */
         void setObjID(QSNMPOID *objID);
-        QSNMPData *data();
+
+        /**
+         * @brief Get SNMP OID
+         * @return pointer to SNMP OID
+         */
+        QSNMPOID *objID();
+
+        /**
+         * @brief Set SNMP data
+         * @param data SNMP data
+         */
         void setData(QSNMPData *data);
-        const QString& name() const;
+
+        /**
+         * @brief Get SNMP data
+         * @return pointer to SNMP data
+         */
+        QSNMPData *data();
+
+        /**
+         * @brief Set community name
+         * @param name community name
+         */
         void setName(const QString& name);
-        MIBStatus status() const;
+
+        /**
+         * @brief Get community name
+         * @return community name
+         */
+        const QString& name() const;
+
+        /**
+         * @brief Set object status
+         * @param status object status
+         */
         void setStatus(MIBStatus status);
-        MIBAccess access() const;
+
+        /**
+         * @brief Get object status
+         * @return object status
+         */
+        MIBStatus status() const;
+
+        /**
+         * @brief Set object access type
+         * @param access object access type
+         */
         void setAccess(MIBAccess access);
-        const QString& description() const;
+
+        /**
+         * @brief Get object access type
+         * @return object access type
+         */
+        MIBAccess access() const;
+
+        /**
+         * @brief Set object description
+         * @param description object description
+         */
         void setDescription(const QString& description);
+
+        /**
+         * @brief Get object description
+         * @return object description
+         */
+        const QString& description() const;
+
     private:
+        /**
+         * @brief _objID SNMP OID
+         */
         QSNMPOID *_objID;
+        /**
+         * @brief _data SNMP data
+         */
         QSNMPData *_data;
+        /**
+         * @brief _name Community name
+         */
         QString _name;
+        /**
+         * @brief _status Object status
+         */
         MIBStatus _status;
+        /**
+         * @brief _access Object access type
+         */
         MIBAccess _access;
+        /**
+         * @brief _description Object status
+         */
         QString _description;
     };
 }

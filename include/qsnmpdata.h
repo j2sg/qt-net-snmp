@@ -37,12 +37,6 @@ namespace QtNetSNMP
      */
     class QSNMPData
     {
-        /**
-         * @brief Overloaded insertion operator to QSNMPData class
-         * @param os Output stream reference
-         * @param snmpData QSNMPData instance reference
-         * @return Output stream reference to chain calls
-         */
         friend std::ostream& operator<<(std::ostream& os, const QSNMPData& snmpData);
     public:
         /**

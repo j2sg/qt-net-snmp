@@ -36,59 +36,59 @@ namespace QtNetSNMP
      * @brief SNMP version to be used
      */
     typedef enum SNMPVersionEnum {
-        SNMPv1 = SNMP_VERSION_1,
-        SNMPv2 = SNMP_VERSION_2c,
-        SNMPv3 = SNMP_VERSION_3
+        SNMPv1 = SNMP_VERSION_1,                /**< SNMP version 1 */
+        SNMPv2 = SNMP_VERSION_2c,               /**< SNMP version 2 */
+        SNMPv3 = SNMP_VERSION_3                 /**< SNMP version 3 */
     } SNMPVersion;
 
     /**
      * @brief PDU type to be encapsulated into SNMP message
      */
     typedef enum SNMPPDUTypeEnum {
-        SNMPPDUGet      = SNMP_MSG_GET,
-        SNMPPDUGetNext  = SNMP_MSG_GETNEXT,
-        SNMPPDUGetBulk  = SNMP_MSG_GETBULK,
-        SNMPPDUSet      = SNMP_MSG_SET,
-        SNMPPDUResponse = SNMP_MSG_RESPONSE
+        SNMPPDUGet      = SNMP_MSG_GET,         /**< GET request */
+        SNMPPDUGetNext  = SNMP_MSG_GETNEXT,     /**< GET NEXT request */
+        SNMPPDUGetBulk  = SNMP_MSG_GETBULK,     /**< GET BULK request */
+        SNMPPDUSet      = SNMP_MSG_SET,         /**< SET request */
+        SNMPPDUResponse = SNMP_MSG_RESPONSE     /**< Response */
     } SNMPPDUType;
 
     /**
      * @brief SNMP Data type to MIB object
      */
     typedef enum SNMPDataTypeEnum {
-        SNMPDataUnknown     = -1,
-        SNMPDataNull        = ASN_NULL,
-        SNMPDataInteger     = ASN_INTEGER,
-        SNMPDataUnsigned    = ASN_UNSIGNED,
-        SNMPDataOctetString = ASN_OCTET_STR,
-        SNMPDataBits        = ASN_BIT8,
-        SNMPDataBitString   = ASN_BIT_STR,
-        SNMPDataObjectId    = ASN_OBJECT_ID,
-        SNMPDataIPAddress   = ASN_IPADDRESS,
-        SNMPDataCounter     = ASN_COUNTER,
-        SNMPDataCounter64   = ASN_COUNTER64,
-        SNMPDataGauge       = ASN_GAUGE,
-        SNMPDataTimeTicks   = ASN_TIMETICKS
+        SNMPDataUnknown     = -1,               /**< Unknown type */
+        SNMPDataNull        = ASN_NULL,         /**< Null type */
+        SNMPDataInteger     = ASN_INTEGER,      /**< Signed Integer type */
+        SNMPDataUnsigned    = ASN_UNSIGNED,     /**< Unsigned Integer type */
+        SNMPDataOctetString = ASN_OCTET_STR,    /**< Octet String type */
+        SNMPDataBits        = ASN_BIT8,         /**< Bits type */
+        SNMPDataBitString   = ASN_BIT_STR,      /**< BitString type */
+        SNMPDataObjectId    = ASN_OBJECT_ID,    /**< OID type */
+        SNMPDataIPAddress   = ASN_IPADDRESS,    /**< IP Address type */
+        SNMPDataCounter     = ASN_COUNTER,      /**< Counter type */
+        SNMPDataCounter64   = ASN_COUNTER64,    /**< 64 bits Counter type */
+        SNMPDataGauge       = ASN_GAUGE,        /**< Gauge type */
+        SNMPDataTimeTicks   = ASN_TIMETICKS     /**< Time Ticks type*/
     } SNMPDataType;
 
     /**
      * @brief Current status to MIB object
      */
     typedef enum MIBStatusEnum {
-        MIBStatusMandatory  = MIB_STATUS_MANDATORY,
-        MIBStatusOptional   = MIB_STATUS_OPTIONAL,
-        MIBStatusObsolete   = MIB_STATUS_OBSOLETE,
-        MIBStatusDeprecated = MIB_STATUS_DEPRECATED
+        MIBStatusMandatory  = MIB_STATUS_MANDATORY,     /**< Mandatory status */
+        MIBStatusOptional   = MIB_STATUS_OPTIONAL,      /**< Optional status */
+        MIBStatusObsolete   = MIB_STATUS_OBSOLETE,      /**< Obsolete status */
+        MIBStatusDeprecated = MIB_STATUS_DEPRECATED     /**< Deprecated status */
     } MIBStatus;
 
     /**
      * @brief Access mode to MIB object
      */
     typedef enum MIBAccessEnum {
-        MIBAccessReadOnly      = MIB_ACCESS_READONLY,
-        MIBAccessReadWrite     = MIB_ACCESS_READWRITE,
-        MIBAccessWriteOnly     = MIB_ACCESS_WRITEONLY,
-        MIBAccessNotAccessible = MIB_ACCESS_NOACCESS
+        MIBAccessReadOnly      = MIB_ACCESS_READONLY,   /**< Read-Only access */
+        MIBAccessReadWrite     = MIB_ACCESS_READWRITE,  /**< Read-Write access */
+        MIBAccessWriteOnly     = MIB_ACCESS_WRITEONLY,  /**< Write-Only access */
+        MIBAccessNotAccessible = MIB_ACCESS_NOACCESS    /**< Not-Accessible access */
     } MIBAccess;
 
     /**

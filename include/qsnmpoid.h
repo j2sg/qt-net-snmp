@@ -34,26 +34,87 @@
 
 namespace QtNetSNMP
 {
+    /**
+     * @brief QSNMPOID class that implements a SNMP OID
+     */
     class QSNMPOID
     {
         friend std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
     public:
+        /**
+         * @brief QSNMPOID constructor
+         * @param numOID vector of integers that represents the OID numeric notation
+         */
         QSNMPOID(QVector<oid> *numOID);
+
+        /**
+         * @brief QSNMPOID constructor
+         * @param numOID array of integers that represents the OID numeric notation
+         * @param numOIDLength array length
+         */
         QSNMPOID(oid *numOID, size_t numOIDLength);
+
+        /**
+         * @brief QSNMPOID constructor
+         * @param textOID string that represents the OID textual notation
+         */
         QSNMPOID(const QString& textOID);
+
+        /**
+         * @brief QSNMPOID copy constructor
+         * @param snmpOID QSNMPOID instance
+         */
         QSNMPOID(const QSNMPOID& snmpOID);
+
+        /**
+         * @brief overloaded assignment operator
+         * @param snmpOID QSNMPOID instance
+         * @return reference to the own object instance
+         */
         QSNMPOID& operator=(const QSNMPOID& snmpOID);
+
+        /**
+         * @brief overloaded addition operator
+         * @param n sub-identifier append to the OID
+         * @return QSNMPOID instance
+         */
         QSNMPOID operator+(int n);
+
+        /**
+         * @brief QSNMPOID destructor
+         */
         ~QSNMPOID();
-        QVector<oid> *numOID();
+
+        /**
+         * @brief Set OID numeric notation
+         * @param numOID OID numeric notation
+         */
         void setNumOID(QVector<oid> *numOID) throw(QSNMPException);
-        QString textOID() const;
+
+        /**
+         * @brief Get OID numeric notation
+         * @return OID numeric notation
+         */
+        QVector<oid> *numOID();
+
+        /**
+         * @brief Set OID textual notation
+         * @param textOID OID textual notation
+         */
         void setTextOID(const QString& textOID) throw(QSNMPException);
+
+        /**
+         * @brief Get OID textual notation
+         * @return OID textual notation
+         */
+        QString textOID() const;
+
     private:
+        /**
+         * @brief _numOID OID numeric notation
+         */
         QVector<oid> *_numOID;
     };
-
-    std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
 }
 
 #endif // QSNMPOID_H

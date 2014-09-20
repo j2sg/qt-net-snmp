@@ -68,11 +68,6 @@ QtNetSNMP::QSNMPObject::~QSNMPObject()
         delete _data;
 }
 
-QtNetSNMP::QSNMPOID *QtNetSNMP::QSNMPObject::objID()
-{
-    return _objID;
-}
-
 void QtNetSNMP::QSNMPObject::setObjID(QSNMPOID *objID)
 {
     if(_objID)
@@ -81,9 +76,9 @@ void QtNetSNMP::QSNMPObject::setObjID(QSNMPOID *objID)
     _objID = objID;
 }
 
-QtNetSNMP::QSNMPData *QtNetSNMP::QSNMPObject::data()
+QtNetSNMP::QSNMPOID *QtNetSNMP::QSNMPObject::objID()
 {
-    return _data;
+    return _objID;
 }
 
 void QtNetSNMP::QSNMPObject::setData(QSNMPData *data)
@@ -94,9 +89,9 @@ void QtNetSNMP::QSNMPObject::setData(QSNMPData *data)
     _data = data;
 }
 
-const QString& QtNetSNMP::QSNMPObject::name() const
+QtNetSNMP::QSNMPData *QtNetSNMP::QSNMPObject::data()
 {
-    return _name;
+    return _data;
 }
 
 void QtNetSNMP::QSNMPObject::setName(const QString& name)
@@ -104,19 +99,9 @@ void QtNetSNMP::QSNMPObject::setName(const QString& name)
     _name = name;
 }
 
-QtNetSNMP::MIBStatus QtNetSNMP::QSNMPObject::status() const
+const QString& QtNetSNMP::QSNMPObject::name() const
 {
-    return _status;
-}
-
-void QtNetSNMP::QSNMPObject::setStatus(MIBStatus status)
-{
-    _status = status;
-}
-
-QtNetSNMP::MIBAccess QtNetSNMP::QSNMPObject::access() const
-{
-    return _access;
+    return _name;
 }
 
 void QtNetSNMP::QSNMPObject::setAccess(MIBAccess access)
@@ -124,12 +109,17 @@ void QtNetSNMP::QSNMPObject::setAccess(MIBAccess access)
     _access = access;
 }
 
-const QString& QtNetSNMP::QSNMPObject::description() const
+QtNetSNMP::MIBAccess QtNetSNMP::QSNMPObject::access() const
 {
-    return _description;
+    return _access;
 }
 
 void QtNetSNMP::QSNMPObject::setDescription(const QString& description)
 {
     _description = description;
+}
+
+const QString& QtNetSNMP::QSNMPObject::description() const
+{
+    return _description;
 }
