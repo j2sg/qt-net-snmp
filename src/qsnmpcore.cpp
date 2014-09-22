@@ -88,6 +88,10 @@ void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, 
 QtNetSNMP::QSNMPCore::QSNMPCore(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
 {
     init_snmp(LIBRARY_NAME);
+    //init_mib();
+    //snmp_set_save_descriptions(1);
+    //snmp_set_mib_warnings(0);
+    //snmp_set_mib_errors(0);
 }
 
 QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version, const QString& community, const QString& agent) throw(QSNMPException)
