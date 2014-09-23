@@ -19,7 +19,7 @@
  **/
 
 /**
-* @file qsnmpexception.cpp
+* @file qsnmpexception.h
 * @brief QSNMPException class definition
 * @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
 */

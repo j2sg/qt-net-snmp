@@ -31,23 +31,84 @@
 
 namespace QtNetSNMP
 {
+    // Forward declarations
     class QSNMPObject;
 
+    /**
+     * @brief QMIBTree class that implements a MIB tree
+     */
     class QMIBTree
     {
     public:
+        /**
+         * @brief QMIBTree constructor
+         * @param object SNMP object
+         * @param parent parent node, the root node has no parent
+         */
         QMIBTree(QSNMPObject *object, QMIBTree *parent = 0);
+
+        /**
+         * @brief QMIBTree copy constructor
+         * @param mibTree QMIBTree instance
+         */
         QMIBTree(const QMIBTree& mibTree);
+
+        /**
+         * @brief Overloaded assignment operator
+         * @param mibTree QMIBTree instance
+         * @return reference to own object instance
+         */
         QMIBTree& operator=(const QMIBTree& mibTree);
+
+        /**
+         * @brief QMIBTree destructor
+         */
         ~QMIBTree();
+
+        /**
+         * @brief Set SNMP object
+         * @param object SNMP object
+         */
         void setObject(QSNMPObject *object);
+
+        /**
+         * @brief Get SNMP object
+         * @return pointer to SNMP object
+         */
         QSNMPObject *object();
+
+        /**
+         * @brief Set parent node
+         * @param parent parent node
+         */
         void setParent(QMIBTree *parent);
+
+        /**
+         * @brief Get parent node
+         * @return pointer to parent node
+         */
         QMIBTree *parent();
+
+        /**
+         * @brief Get vector of child nodes
+         * @return reference to vector of child nodes
+         */
         QVector<QMIBTree *>& childs();
     private:
+
+        /**
+         * @brief _object SNMP object
+         */
         QSNMPObject *_object;
+
+        /**
+         * @brief _parent parent node
+         */
         QMIBTree *_parent;
+
+        /**
+         * @brief _childs vector of child nodes
+         */
         QVector<QMIBTree *> _childs;
     };
 }
