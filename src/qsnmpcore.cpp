@@ -28,6 +28,7 @@
 #include "qsnmpobject.h"
 #include "qsnmpdata.h"
 #include "qsnmpoid.h"
+#include "qmibtree.h"
 
 void QtNetSNMP::QSNMPCore::setPort(unsigned short port)
 {
@@ -85,13 +86,24 @@ void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, 
     SOCK_CLEANUP; // Free resources on Win32. (No effect on Unix systems)
 }
 
+QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPCore::parseMIB(SNMPMIBTree *root)
+{
+    QMIBTree *mibTree = 0;
+
+    if(!root)
+        return 0;
+
+    return mibTree;
+}
+
+
 QtNetSNMP::QSNMPCore::QSNMPCore(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
 {
     init_snmp(LIBRARY_NAME);
     //init_mib();
-    //snmp_set_save_descriptions(1);
     //snmp_set_mib_warnings(0);
     //snmp_set_mib_errors(0);
+    //snmp_set_save_descriptions(1);
 }
 
 QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version, const QString& community, const QString& agent) throw(QSNMPException)

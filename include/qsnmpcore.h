@@ -36,6 +36,7 @@ namespace QtNetSNMP
 {
     // Forward declarations
     class QSNMPObject;
+    class QMIBTree;
 
     /**
      * @brief QSNMPCore class that implements all basic SNMP protocol primitives
@@ -97,6 +98,14 @@ namespace QtNetSNMP
          */
         void snmpoperation(SNMPPDUType type, SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
                            unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
+
+        /**
+         * @brief Parse MIB tree
+         * @param root root node of Net-SNMP MIB tree
+         * @return pointer to MIB tree
+         */
+        QMIBTree *parseMIB(SNMPMIBTree *root);
+
     private:
 
         /**

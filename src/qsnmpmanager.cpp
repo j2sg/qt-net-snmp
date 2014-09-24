@@ -27,6 +27,8 @@
 #include "qsnmpmanager.h"
 #include "qsnmpcore.h"
 #include "qsnmpobject.h"
+#include <QDir>
+#include <QFile>
 
 QtNetSNMP::QSNMPManager *QtNetSNMP::QSNMPManager::instance()
 {
@@ -64,6 +66,55 @@ void QtNetSNMP::QSNMPManager::snmpset(SNMPVersion version, const QString& commun
     _core -> snmpoperation(SNMPPDUSet, version, community, agent, objs);
 }
 
+QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPManager::getMIBModule(const QString& module) throw(QSNMPException)
+{
+    Q_UNUSED(module);
+
+    //SNMPMIBTree *snmpMIBTree = 0;
+
+    /*if(module.isEmpty())
+        snmpMIBTree = read_all_mibs();
+    else {
+
+    }*/
+
+    return 0;
+}
+
+QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPManager::getMIBFile(const QString& fileName) throw(QSNMPException)
+{
+    if(!QFile(fileName).exists())
+        throw QSNMPException("QSNMPManager :: Get MIB File :: File not found");
+
+    return 0;
+}
+
+QStringList QtNetSNMP::QSNMPManager::getModulesInstalled()
+{
+    QStringList modules;
+
+    foreach(QString dir, getMIBDirectories())
+        foreach(QString module, QDir(dir).entryList(QDir::Files))
+            modules.append(module.remove(QRegExp(".txt")));
+
+    modules.removeDuplicates();
+
+    return modules;
+}
+
+QStringList QtNetSNMP::QSNMPManager::getMIBDirectories()
+{
+    QStringList laux = QString(netsnmp_get_mib_directory()).split(":");
+    QStringList directories;
+
+    laux.removeDuplicates();
+
+    foreach(QString dir, laux)
+        if(QDir(dir).exists())
+            directories.append(dir);
+
+    return directories;
+}
 
 QtNetSNMP::QSNMPManager::QSNMPManager()
 {

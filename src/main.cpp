@@ -28,7 +28,19 @@ int main()
 {
     QtNetSNMP::QSNMPManager *manager = QtNetSNMP::QSNMPManager::instance();
 
-    std::cout << ((manager) ? "exists one QSNMPManager instance" : "not exists one QSNMPManager instance") << std::endl;
+    std::cout << "MIB directories" << std::endl;
+
+    foreach(QString dir, manager->getMIBDirectories())
+       std::cout << dir.toStdString() << std::endl;
+
+    std::cout << "Modules" << std::endl;
+
+    QStringList modules = manager->getModulesInstalled();
+
+    foreach(QString module, modules)
+       std::cout << module.toStdString() << std::endl;
+
+    std::cout << modules.length() << " modules installed" << std::endl;
 
     return 0;
 }

@@ -45,7 +45,7 @@ namespace QtNetSNMP
          * @param object SNMP object
          * @param parent parent node, the root node has no parent
          */
-        QMIBTree(QSNMPObject *object, QMIBTree *parent = 0);
+        QMIBTree(QSNMPObject *object = 0, QMIBTree *parent = 0);
 
         /**
          * @brief QMIBTree copy constructor

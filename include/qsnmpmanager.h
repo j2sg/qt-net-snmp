@@ -30,6 +30,7 @@
 #include "global.h"
 #include "qsnmpexception.h"
 #include <QString>
+#include <QStringList>
 #include <QVector>
 
 namespace QtNetSNMP
@@ -37,6 +38,7 @@ namespace QtNetSNMP
     // Forward declarations
     class QSNMPCore;
     class QSNMPObject;
+    class QMIBTree;
 
     /**
      * @brief QSNMPManager class that implements the SNMP Manager Behavior
@@ -98,6 +100,23 @@ namespace QtNetSNMP
          */
         void snmpset(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs) throw(QSNMPException);
 
+        /**
+         * @brief Get MIB tree for a MIB module
+         * @param module MIB module name, Whether this is empty will get all MIBs
+         * @return pointer to MIB tree
+         */
+        QMIBTree *getMIBModule(const QString& module) throw(QSNMPException);
+
+        /**
+         * @brief Get MIB tree for a MIB module contained in a file
+         * @param fileName File name that contains the MIB module
+         * @return pointer to MIB tree
+         */
+        QMIBTree *getMIBFile(const QString& fileName) throw(QSNMPException);
+
+        QStringList getModulesInstalled();
+
+        QStringList getMIBDirectories();
     private:
 
         /**
