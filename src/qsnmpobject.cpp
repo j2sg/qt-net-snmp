@@ -104,6 +104,16 @@ const QString& QtNetSNMP::QSNMPObject::name() const
     return _name;
 }
 
+void QtNetSNMP::QSNMPObject::setStatus(MIBStatus status)
+{
+    _status = status;
+}
+
+QtNetSNMP::MIBStatus QtNetSNMP::QSNMPObject::status() const
+{
+    return _status;
+}
+
 void QtNetSNMP::QSNMPObject::setAccess(MIBAccess access)
 {
     _access = access;

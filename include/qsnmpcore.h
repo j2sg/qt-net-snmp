@@ -102,7 +102,7 @@ namespace QtNetSNMP
         /**
          * @brief Get MIB tree
          * @param root root node of Net-SNMP MIB tree
-         * @return pointer to MIB tree
+         * @return pointer to parsed MIB tree
          */
         QMIBTree *getMIBTree(SNMPMIBTree *root);
 
@@ -166,6 +166,13 @@ namespace QtNetSNMP
          * @param objs SNMP objects list
          */
         void processResponse(SNMPPDU *pdu, QVector<QSNMPObject *>& objs);
+
+        /**
+         * @brief Parse MIB tree
+         * @param tree node of Net-SNMP MIB tree
+         * @param mibTree node of parsed MIB tree
+         */
+        void parseMIBTree(SNMPMIBTree *tree, QMIBTree *mibTree);
 
         /**
          * @brief _port SNMP Agent remote port

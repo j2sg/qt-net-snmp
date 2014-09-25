@@ -90,8 +90,10 @@ QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPCore::getMIBTree(SNMPMIBTree *root)
 {
     QMIBTree *mibTree = 0;
 
-    if(!root)
-        return 0;
+    if(root) {
+        mibTree = new QMIBTree;
+        parseMIBTree(root, mibTree);
+    }
 
     return mibTree;
 }
@@ -235,5 +237,65 @@ void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, QVector<QSNMPObject *>&
         snmpData -> setValue(static_cast<SNMPDataType>(vl->type), static_cast<SNMPValue>(vl->val), vl->val_len);
 
         objs.append(new QSNMPObject(snmpOID, snmpData));
+    }
+}
+
+void QtNetSNMP::QSNMPCore::parseMIBTree(SNMPMIBTree *tree, QMIBTree *mibTree)
+{
+    if(!tree || !mibTree)
+        return;
+
+    QSNMPOID *objID = new QSNMPOID(((mibTree -> parent() != 0) ? mibTree -> parent() -> object() -> objID() -> textOID() : "") + QString::number(tree -> subid));
+    SNMPDataType type;
+
+    switch(tree -> type) {
+    case TYPE_INTEGER:
+    case TYPE_INTEGER32:
+        type = SNMPDataInteger;
+        break;
+    case TYPE_UINTEGER:
+    case TYPE_UNSIGNED32:
+        type = SNMPDataUnsigned;
+        break;
+    case TYPE_BITSTRING:
+        type = SNMPDataBitString;
+        break;
+    case TYPE_COUNTER:
+        type = SNMPDataCounter;
+        break;
+    case TYPE_TIMETICKS:
+        type = SNMPDataTimeTicks;
+        break;
+    case TYPE_COUNTER64:
+        type = SNMPDataCounter64;
+        break;
+    case TYPE_OCTETSTR:
+        type = SNMPDataOctetString;
+        break;
+    case TYPE_IPADDR:
+        type = SNMPDataIPAddress;
+        break;
+    case TYPE_OBJID:
+        type = SNMPDataObjectId;
+        break;
+    case TYPE_NULL:
+        type = SNMPDataNull;
+        break;
+    default:
+        type = SNMPDataUnknown;
+    }
+
+    QSNMPObject *snmpObj = new QSNMPObject(objID, new QSNMPData(type));
+
+    snmpObj -> setName(tree -> label ? tree -> label : "");
+    snmpObj -> setStatus(static_cast<MIBStatus>(tree -> status));
+    snmpObj -> setAccess(static_cast<MIBAccess>(tree -> access));
+    snmpObj -> setDescription(tree -> description ? tree -> description : "");
+
+    mibTree -> setObject(snmpObj);
+
+    for(SNMPMIBTree *child = tree -> child_list; child; child = child -> next_peer) {
+        mibTree -> childs().push_back(new QMIBTree(0, mibTree));
+        parseMIBTree(child, mibTree -> childs().back());
     }
 }
