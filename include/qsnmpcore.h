@@ -100,11 +100,11 @@ namespace QtNetSNMP
                            unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
 
         /**
-         * @brief Parse MIB tree
+         * @brief Get MIB tree
          * @param root root node of Net-SNMP MIB tree
          * @return pointer to MIB tree
          */
-        QMIBTree *parseMIB(SNMPMIBTree *root);
+        QMIBTree *getMIBTree(SNMPMIBTree *root);
 
     private:
 

@@ -86,7 +86,7 @@ void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, 
     SOCK_CLEANUP; // Free resources on Win32. (No effect on Unix systems)
 }
 
-QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPCore::parseMIB(SNMPMIBTree *root)
+QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPCore::getMIBTree(SNMPMIBTree *root)
 {
     QMIBTree *mibTree = 0;
 

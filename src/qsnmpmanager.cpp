@@ -68,17 +68,12 @@ void QtNetSNMP::QSNMPManager::snmpset(SNMPVersion version, const QString& commun
 
 QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPManager::getMIBModule(const QString& module) throw(QSNMPException)
 {
-    Q_UNUSED(module);
+    if(module.isEmpty())
+        return _core -> getMIBTree(read_all_mibs());
+    else if(getModulesInstalled().indexOf(module) == -1)
+        throw QSNMPException("QSNMPManager :: Get MIB Module :: Module not found");
 
-    //SNMPMIBTree *snmpMIBTree = 0;
-
-    /*if(module.isEmpty())
-        snmpMIBTree = read_all_mibs();
-    else {
-
-    }*/
-
-    return 0;
+    return _core -> getMIBTree(read_module(module.toStdString().c_str()));
 }
 
 QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPManager::getMIBFile(const QString& fileName) throw(QSNMPException)
@@ -86,7 +81,7 @@ QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPManager::getMIBFile(const QString& fileName
     if(!QFile(fileName).exists())
         throw QSNMPException("QSNMPManager :: Get MIB File :: File not found");
 
-    return 0;
+    return _core -> getMIBTree(read_mib(fileName.toStdString().c_str()));
 }
 
 QStringList QtNetSNMP::QSNMPManager::getModulesInstalled()
