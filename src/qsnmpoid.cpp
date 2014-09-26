@@ -78,7 +78,8 @@ void QtNetSNMP::QSNMPOID::setNumOID(QVector<oid> *numOID) throw(QSNMPException)
     if(_numOID)
         delete _numOID;
 
-    _numOID = new QVector<oid>();
+    _numOID = new QVector<oid>(numOID -> size());
+
     qCopy(numOID -> begin(), numOID -> end(), _numOID -> begin());
 }
 
@@ -107,8 +108,8 @@ QString QtNetSNMP::QSNMPOID::textOID() const
 {
     QString str;
 
-    for(int k = 0;k < _numOID -> size();++k) {
-        str.append(QString(static_cast<int>(_numOID -> at(k))));
+    for(int k = 0; k < _numOID -> size(); ++k) {
+        str.append(QString::number(static_cast<oid>(_numOID -> at(k))));
         if(k != _numOID -> size() - 1)
             str.append(".");
     }

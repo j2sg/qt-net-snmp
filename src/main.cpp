@@ -25,13 +25,14 @@
  * Main function for debug purposes
  */
 int main()
-{
+{   
     try {
         QtNetSNMP::QSNMPManager *manager = QtNetSNMP::QSNMPManager::instance();
-        QtNetSNMP::QMIBTree *mib = manager -> getMIBModule();
+        QtNetSNMP::QMIBTree *mib = manager -> getMIBModule("SNMPv2-MIB");
 
         if(mib)
             std::cout << "MIB loaded and avaible" << std::endl;
+
     } catch(QtNetSNMP::QSNMPException& exception) {
         std::cout << exception.message().toStdString() << std::endl;
     }

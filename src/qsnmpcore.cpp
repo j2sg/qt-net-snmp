@@ -78,6 +78,7 @@ void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, 
     session = createSession(version, community, agent);
     requestPDU = createPDU(type, objs, nrepeaters, mrepetitions);
     responsePDU = sendPDU(session, requestPDU);
+
     if(type != SNMPPDUSet)
         processResponse(responsePDU, objs);
 

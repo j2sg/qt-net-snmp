@@ -97,7 +97,7 @@ std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)
         }
     }
 
-    return os << QString("t:%1 v:%2 l:%3").arg(type).arg(value).arg(length);
+    return os << QString("t:%1 v:%2 l:%3").arg(type).arg(value).arg(length).toStdString();
 }
 
 std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPObject& snmpObj)
@@ -112,5 +112,5 @@ std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPObject& snmpObj
 
 std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPOID& snmpOID)
 {
-    return os << snmpOID.textOID();
+    return os << snmpOID.textOID().toStdString();
 }
