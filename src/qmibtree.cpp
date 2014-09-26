@@ -57,9 +57,6 @@ QtNetSNMP::QMIBTree& QtNetSNMP::QMIBTree::operator=(const QMIBTree& mibTree)
 
 QtNetSNMP::QMIBTree::~QMIBTree()
 {
-    if(_parent)
-        delete _parent;
-
     qDeleteAll(_childs);
 
     if(_object)
