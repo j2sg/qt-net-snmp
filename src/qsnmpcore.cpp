@@ -102,10 +102,9 @@ QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPCore::getMIBTree(SNMPMIBTree *root)
 QtNetSNMP::QSNMPCore::QSNMPCore(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
 {
     init_snmp(LIBRARY_NAME);
-    //init_mib();
-    //snmp_set_mib_warnings(0);
-    //snmp_set_mib_errors(0);
-    //snmp_set_save_descriptions(1);
+    snmp_set_mib_warnings(0);
+    snmp_set_mib_errors(0);
+    snmp_set_save_descriptions(1);
 }
 
 QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version, const QString& community, const QString& agent) throw(QSNMPException)
@@ -245,7 +244,9 @@ void QtNetSNMP::QSNMPCore::parseMIBTree(SNMPMIBTree *tree, QMIBTree *mibTree)
     if(!tree || !mibTree)
         return;
 
-    QSNMPOID *objID = new QSNMPOID(((mibTree -> parent() != 0) ? mibTree -> parent() -> object() -> objID() -> textOID() : "") + QString::number(tree -> subid));
+    QSNMPOID *objID = new QSNMPOID(((mibTree -> parent() != 0) ?
+                                        QSNMPOID(*mibTree -> parent() -> object() -> objID()) + static_cast<int>(tree -> subid) :
+                                        QString::number(tree->subid)));
     SNMPDataType type;
 
     switch(tree -> type) {

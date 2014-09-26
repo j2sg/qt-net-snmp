@@ -46,7 +46,7 @@ QtNetSNMP::QSNMPOID::QSNMPOID(const QString& textOID) : _numOID(0)
     setTextOID(textOID);
 }
 
-QtNetSNMP::QSNMPOID::QSNMPOID(const QSNMPOID& snmpOID)
+QtNetSNMP::QSNMPOID::QSNMPOID(const QSNMPOID& snmpOID) : _numOID(0)
 {
     *this = snmpOID;
 }

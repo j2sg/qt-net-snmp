@@ -26,21 +26,15 @@
  */
 int main()
 {
-    QtNetSNMP::QSNMPManager *manager = QtNetSNMP::QSNMPManager::instance();
+    try {
+        QtNetSNMP::QSNMPManager *manager = QtNetSNMP::QSNMPManager::instance();
+        QtNetSNMP::QMIBTree *mib = manager -> getMIBModule();
 
-    std::cout << "MIB directories" << std::endl;
-
-    foreach(QString dir, manager->getMIBDirectories())
-       std::cout << dir.toStdString() << std::endl;
-
-    std::cout << "Modules" << std::endl;
-
-    QStringList modules = manager->getModulesInstalled();
-
-    foreach(QString module, modules)
-       std::cout << module.toStdString() << std::endl;
-
-    std::cout << modules.length() << " modules installed" << std::endl;
+        if(mib)
+            std::cout << "MIB loaded and avaible" << std::endl;
+    } catch(QtNetSNMP::QSNMPException& exception) {
+        std::cout << exception.message().toStdString() << std::endl;
+    }
 
     return 0;
 }

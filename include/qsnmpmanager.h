@@ -105,7 +105,7 @@ namespace QtNetSNMP
          * @param module MIB module name, Whether this is empty will get all MIBs
          * @return pointer to MIB tree
          */
-        QMIBTree *getMIBModule(const QString& module) throw(QSNMPException);
+        QMIBTree *getMIBModule(const QString& module = QString()) throw(QSNMPException);
 
         /**
          * @brief Get MIB tree for a MIB module contained in a file
@@ -114,8 +114,16 @@ namespace QtNetSNMP
          */
         QMIBTree *getMIBFile(const QString& fileName) throw(QSNMPException);
 
+        /**
+         * @brief Get MIB modules list installed on system
+         * @return MIB modules list
+         */
         QStringList getModulesInstalled();
 
+        /**
+         * @brief Get MIB directories list where there are the MIB modules
+         * @return MIB directories list
+         */
         QStringList getMIBDirectories();
     private:
 
