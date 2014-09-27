@@ -112,6 +112,8 @@ QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version,
 {
     SNMPSession session;
     SNMPSession *openedSession;
+    std::string stdCommunity = community.toStdString();
+    std::string stdAgent = agent.toStdString();
 
     if(version != SNMPv1 && version != SNMPv2)
         throw QSNMPException("QSNMPCore :: Create Session :: Version not supported");
@@ -121,9 +123,9 @@ QtNetSNMP::SNMPSession *QtNetSNMP::QSNMPCore::createSession(SNMPVersion version,
     session.retries = _retries;
     session.timeout = _timeout;
     session.version = version;
-    session.community = (u_char *) community.toStdString().c_str();
-    session.community_len = community.length();
-    session.peername = (char *) agent.toStdString().c_str();
+    session.community = reinterpret_cast<u_char *>(const_cast<char *>(stdCommunity.c_str()));
+    session.community_len = stdCommunity.length();
+    session.peername = const_cast<char *>(stdAgent.c_str());
     SOCK_STARTUP;
 
     if(!(openedSession = snmp_open(&session))) {
@@ -188,10 +190,10 @@ QtNetSNMP::SNMPPDU *QtNetSNMP::QSNMPCore::createPDU(SNMPPDUType type, QVector<QS
                 dataType = '=';
             }
 
-            snmp_add_var(pdu, object -> objID() -> numOID() -> data(), object -> objID() -> numOID() -> size(), dataType, static_cast<const char *>(object -> data() -> value()));
+            snmp_add_var(pdu, object -> objID() -> numOID() -> data(), static_cast<size_t>(object -> objID() -> numOID() -> size()), dataType, static_cast<const char *>(object -> data() -> value()));
 
         } else
-            snmp_add_null_var(pdu, object -> objID() -> numOID() -> data(), object -> objID() -> numOID() -> size());
+            snmp_add_null_var(pdu, object -> objID() -> numOID() -> data(), static_cast<size_t>(object -> objID() -> numOID() -> size()));
     }
 
     if(type == SNMPPDUGetBulk) {
@@ -230,11 +232,11 @@ void QtNetSNMP::QSNMPCore::processResponse(SNMPPDU *pdu, QVector<QSNMPObject *>&
 
     objs.clear();
 
-    for(SNMPVariableList *vl = pdu -> variables; vl; vl = vl -> next_variable) {
-        QSNMPOID *snmpOID = new QSNMPOID(vl -> name, vl -> name_length);
+    for(SNMPVariableList *var = pdu -> variables; var; var = var -> next_variable) {
+        QSNMPOID *snmpOID = new QSNMPOID(var -> name, var -> name_length);
         QSNMPData *snmpData = new QSNMPData;
 
-        snmpData -> setValue(static_cast<SNMPDataType>(vl->type), static_cast<SNMPValue>(vl->val), vl->val_len);
+        snmpData -> setValue(static_cast<SNMPDataType>(var -> type), static_cast<SNMPValue>(var -> val), var -> val_len);
 
         objs.append(new QSNMPObject(snmpOID, snmpData));
     }

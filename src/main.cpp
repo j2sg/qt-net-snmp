@@ -19,7 +19,11 @@
  **/
 
 #include "qsnmpmanager.h"
+#include "qsnmpobject.h"
+#include "qsnmpoid.h"
+#include "qsnmpostream.h"
 #include <iostream>
+#include <QVector>
 
 /**
  * Main function for debug purposes
@@ -28,10 +32,16 @@ int main()
 {   
     try {
         QtNetSNMP::QSNMPManager *manager = QtNetSNMP::QSNMPManager::instance();
-        QtNetSNMP::QMIBTree *mib = manager -> getMIBModule("SNMPv2-MIB");
+        /**QtNetSNMP::QMIBTree *mib = manager -> getMIBModule("SNMPv2-MIB");
 
         if(mib)
-            std::cout << "MIB loaded and avaible" << std::endl;
+            std::cout << "MIB loaded and avaible" << std::endl;**/
+
+        QtNetSNMP::QSNMPObject *snmpObj = new QtNetSNMP::QSNMPObject(new QtNetSNMP::QSNMPOID("1.3.6.1.2.1.1.1.0"));
+
+        manager -> snmpget(QtNetSNMP::SNMPv2, "public", "192.168.1.30", QVector<QtNetSNMP::QSNMPObject *>() << snmpObj);
+
+        std::cout << *snmpObj << std::endl;
 
     } catch(QtNetSNMP::QSNMPException& exception) {
         std::cout << exception.message().toStdString() << std::endl;

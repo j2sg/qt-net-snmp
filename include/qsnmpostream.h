@@ -19,13 +19,13 @@
  **/
 
 /**
-* @file ostream.h
+* @file qsnmpostream.h
 * @brief Declarations of overloaded insertion operators to SNMP Classes
 * @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
 */
 
-#ifndef OSTREAM_H
-#define OSTREAM_H
+#ifndef QSNMPOSTREAM_H
+#define QSNMPOSTREAM_H
 
 #include "qsnmpdata.h"
 #include "qsnmpobject.h"
@@ -58,4 +58,4 @@ namespace QtNetSNMP
     std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
 }
 
-#endif // OSTREAM_H
+#endif // QSNMPOSTREAM_H

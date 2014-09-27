@@ -19,18 +19,18 @@
  **/
 
 /**
-* @file ostream.cpp
+* @file qsnmpostream.cpp
 * @brief Definitions for overloaded insertion operators to SNMP Classes
 * @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
 */
 
-#include "ostream.h"
+#include "qsnmpostream.h"
 
 std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)
 {
     QChar type;
     QString value;
-    QString length(static_cast<int>(snmpData._length));
+    QString length = QString::number(snmpData.length());
 
     switch(snmpData._type) {
     case SNMPDataInteger:
@@ -87,7 +87,7 @@ std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)
         case SNMPDataBitString:
         case SNMPDataOctetString:
         case SNMPDataIPAddress:
-            value = QString(*static_cast<unsigned char *>(valuePtr));
+            value = QString(static_cast<const char *>(valuePtr));
             break;
         case SNMPDataObjectId:
             value = QSNMPOID(static_cast<oid *>(valuePtr), snmpData._length).textOID();
@@ -104,6 +104,7 @@ std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPObject& snmpObj
 {
     if(snmpObj._objID)
         os << *snmpObj._objID << " := ";
+
     if(snmpObj._data)
         os << *snmpObj._data;
 

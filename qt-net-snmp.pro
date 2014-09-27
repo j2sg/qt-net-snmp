@@ -20,7 +20,7 @@ HEADERS += \
     include/qsnmpcore.h \
     include/qsnmpdata.h \
     include/qsnmpoid.h \
-    include/ostream.h \
+    include/qsnmpostream.h \
     include/qmibtree.h
 
 SOURCES += \
@@ -30,7 +30,7 @@ SOURCES += \
     src/qsnmpcore.cpp \
     src/qsnmpoid.cpp \
     src/qsnmpdata.cpp \
-    src/ostream.cpp \
+    src/qsnmpostream.cpp \
     src/qmibtree.cpp
 
 LIBS += -lnetsnmp
