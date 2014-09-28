@@ -94,6 +94,12 @@ namespace QtNetSNMP
          * @return reference to vector of child nodes
          */
         QVector<QMIBTree *>& childs();
+
+        /**
+         * @brief Add a new child node
+         * @param child child node
+         */
+        void addChild(QMIBTree *child);
     private:
 
         /**

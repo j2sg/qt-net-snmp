@@ -247,9 +247,9 @@ void QtNetSNMP::QSNMPCore::parseMIBTree(SNMPMIBTree *tree, QMIBTree *mibTree)
     if(!tree || !mibTree)
         return;
 
-    QSNMPOID *objID = new QSNMPOID(((mibTree -> parent() != 0) ?
+    QSNMPOID *objID = new QSNMPOID(((mibTree -> parent() != 0 && mibTree -> parent() -> object()) ?
                                         QSNMPOID(*mibTree -> parent() -> object() -> objID()) + static_cast<int>(tree -> subid) :
-                                        QString::number(tree->subid)));
+                                        QString::number(tree -> subid)));
     SNMPDataType type;
 
     switch(tree -> type) {
@@ -299,7 +299,8 @@ void QtNetSNMP::QSNMPCore::parseMIBTree(SNMPMIBTree *tree, QMIBTree *mibTree)
     mibTree -> setObject(snmpObj);
 
     for(SNMPMIBTree *child = tree -> child_list; child; child = child -> next_peer) {
-        mibTree -> childs().push_back(new QMIBTree(0, mibTree));
-        parseMIBTree(child, mibTree -> childs().back());
+        QMIBTree *mibChild = new QMIBTree;
+        mibTree -> addChild(mibChild);
+        parseMIBTree(child, mibChild);
     }
 }

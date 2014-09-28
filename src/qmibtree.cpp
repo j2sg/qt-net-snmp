@@ -93,3 +93,12 @@ QVector<QtNetSNMP::QMIBTree *>& QtNetSNMP::QMIBTree::childs()
 {
     return _childs;
 }
+
+void QtNetSNMP::QMIBTree::addChild(QMIBTree *child)
+{
+    if(!child)
+        return;
+
+    child -> setParent(this);
+    _childs.push_back(child);
+}
