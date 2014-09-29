@@ -27,6 +27,7 @@
 #ifndef QSNMPOBJECT_H
 #define QSNMPOBJECT_H
 
+#include "qtnetsnmp_global.h"
 #include "types.h"
 #include <QString>
 
@@ -39,7 +40,7 @@ namespace QtNetSNMP
     /**
      * @brief QSNMPObject class that implements a SNMP object
      */
-    class QSNMPObject
+    class QTNETSNMP_EXPORT QSNMPObject
     {
         friend std::ostream& operator<<(std::ostream& os, const QSNMPObject& snmpObj);
     public:

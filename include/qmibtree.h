@@ -27,6 +27,7 @@
 #ifndef QMIBTREE_H
 #define QMIBTREE_H
 
+#include "qtnetsnmp_global.h"
 #include <QVector>
 
 namespace QtNetSNMP
@@ -37,7 +38,7 @@ namespace QtNetSNMP
     /**
      * @brief QMIBTree class that implements a MIB tree
      */
-    class QMIBTree
+    class QTNETSNMP_EXPORT QMIBTree
     {
         friend std::ostream& operator<<(std::ostream& os, const QMIBTree& mibTree);
     public:

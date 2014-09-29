@@ -27,6 +27,7 @@
 #ifndef QSNMPOID_H
 #define QSNMPOID_H
 
+#include "qtnetsnmp_global.h"
 #include "types.h"
 #include "qsnmpexception.h"
 #include <QString>
@@ -37,7 +38,7 @@ namespace QtNetSNMP
     /**
      * @brief QSNMPOID class that implements a SNMP OID
      */
-    class QSNMPOID
+    class QTNETSNMP_EXPORT QSNMPOID
     {
         friend std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
     public:

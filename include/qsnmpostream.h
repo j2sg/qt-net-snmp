@@ -27,6 +27,7 @@
 #ifndef QSNMPOSTREAM_H
 #define QSNMPOSTREAM_H
 
+#include "qtnetsnmp_global.h"
 #include "qmibtree.h"
 #include "qsnmpdata.h"
 #include "qsnmpobject.h"
@@ -40,14 +41,14 @@ namespace QtNetSNMP
      * @param mibTree QMIBTree instance reference
      * @return Output stream reference to chain calls
      */
-    std::ostream& operator<<(std::ostream& os, const QMIBTree& mibTree);
+    QTNETSNMP_EXPORT std::ostream& operator<<(std::ostream& os, const QMIBTree& mibTree);
     /**
      * @brief Overloaded insertion operator to QSNMPData class
      * @param os Output stream reference
      * @param snmpData QSNMPData instance reference
      * @return Output stream reference to chain calls
      */
-    std::ostream& operator<<(std::ostream& os, const QSNMPData& snmpData);
+    QTNETSNMP_EXPORT std::ostream& operator<<(std::ostream& os, const QSNMPData& snmpData);
 
     /**
      * @brief Overloaded insertion operator to QSNMPObject class
@@ -55,7 +56,7 @@ namespace QtNetSNMP
      * @param snmpObj QSNMPObject instance reference
      * @return Output stream reference to chain calls
      */
-    std::ostream& operator<<(std::ostream& os, const QSNMPObject& snmpObj);
+    QTNETSNMP_EXPORT std::ostream& operator<<(std::ostream& os, const QSNMPObject& snmpObj);
 
     /**
      * @brief Overloaded insertion operator to QSNMPOID class
@@ -63,7 +64,7 @@ namespace QtNetSNMP
      * @param snmpOID QSNMPOID instance reference
      * @return Output stream reference to chain calls
      */
-    std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
+    QTNETSNMP_EXPORT std::ostream& operator<<(std::ostream& os, const QSNMPOID& snmpOID);
 }
 
 #endif // QSNMPOSTREAM_H

@@ -27,6 +27,7 @@
 #ifndef QSNMPEXCEPTION_H
 #define QSNMPEXCEPTION_H
 
+#include "qtnetsnmp_global.h"
 #include <QString>
 
 namespace QtNetSNMP
@@ -34,7 +35,7 @@ namespace QtNetSNMP
     /**
      * @brief QSNMPException class to error handling
      */
-    class QSNMPException
+    class QTNETSNMP_EXPORT QSNMPException
     {
     public:
         /**

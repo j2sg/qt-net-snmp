@@ -27,6 +27,7 @@
 #ifndef QSNMPCORE_H
 #define QSNMPCORE_H
 
+#include "qtnetsnmp_global.h"
 #include "global.h"
 #include "qsnmpexception.h"
 #include <QString>
@@ -41,7 +42,7 @@ namespace QtNetSNMP
     /**
      * @brief QSNMPCore class that implements all basic SNMP protocol primitives
      */
-    class QSNMPCore
+    class QTNETSNMP_EXPORT QSNMPCore
     {
     public:
         /**

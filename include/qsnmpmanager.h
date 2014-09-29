@@ -27,6 +27,7 @@
 #ifndef QSNMPMANAGER_H
 #define QSNMPMANAGER_H
 
+#include "qtnetsnmp_global.h"
 #include "global.h"
 #include "qsnmpexception.h"
 #include <QString>
@@ -43,7 +44,7 @@ namespace QtNetSNMP
     /**
      * @brief QSNMPManager class that implements the SNMP Manager Behavior
      */
-    class QSNMPManager
+    class QTNETSNMP_EXPORT QSNMPManager
     {
     public:
 
