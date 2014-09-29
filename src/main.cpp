@@ -32,10 +32,12 @@ int main()
 {   
     try {
         QtNetSNMP::QSNMPManager *manager = QtNetSNMP::QSNMPManager::instance();
-        QtNetSNMP::QMIBTree *mib = manager -> getMIBModule();
+        QtNetSNMP::QMIBTree *mib = manager -> getMIBModule("SNMPv2-MIB");
 
-        if(mib)
+        if(mib) {
             std::cout << "MIB loaded and avaible" << std::endl;
+            std::cout << *mib << std::endl;
+        }
 
         /**QtNetSNMP::QSNMPObject *snmpObj = new QtNetSNMP::QSNMPObject(new QtNetSNMP::QSNMPOID("1.3.6.1.2.1.1.1.0"));
 

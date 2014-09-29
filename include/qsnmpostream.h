@@ -27,12 +27,20 @@
 #ifndef QSNMPOSTREAM_H
 #define QSNMPOSTREAM_H
 
+#include "qmibtree.h"
 #include "qsnmpdata.h"
 #include "qsnmpobject.h"
 #include "qsnmpoid.h"
 
 namespace QtNetSNMP
 {
+    /**
+     * @brief Overloaded insertion operator to QMIBTree class
+     * @param os Output stream reference
+     * @param mibTree QMIBTree instance reference
+     * @return Output stream reference to chain calls
+     */
+    std::ostream& operator<<(std::ostream& os, const QMIBTree& mibTree);
     /**
      * @brief Overloaded insertion operator to QSNMPData class
      * @param os Output stream reference

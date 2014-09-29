@@ -25,6 +25,18 @@
 */
 
 #include "qsnmpostream.h"
+#include <QVector>
+
+std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QMIBTree& mibTree)
+{
+    if(mibTree._object)
+        os << *mibTree._object << std::endl;
+
+    foreach(QMIBTree *child, mibTree._childs)
+        os << *child << std::endl;
+
+    return os;
+}
 
 std::ostream& QtNetSNMP::operator<<(std::ostream& os, const QSNMPData& snmpData)
 {

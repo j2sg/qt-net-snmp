@@ -39,6 +39,7 @@ namespace QtNetSNMP
      */
     class QMIBTree
     {
+        friend std::ostream& operator<<(std::ostream& os, const QMIBTree& mibTree);
     public:
         /**
          * @brief QMIBTree constructor
