@@ -37,6 +37,14 @@ LIBS += -lnetsnmp
 
 DEFINES += QTNETSNMP_LIBRARY
 
+unix {
+    target.path = /usr/lib
+    headers.path = /usr/include/QtNetSNMP
+    headers.files = include/*
+
+    INSTALLS += target headers
+}
+
 OTHER_FILES += \
     AUTHOR \
     LICENSE \
