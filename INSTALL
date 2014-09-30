@@ -16,7 +16,7 @@
 
       make
 
-   - Install library and headers
+   - Install library and headers (as root user)
 
       make install 
       
