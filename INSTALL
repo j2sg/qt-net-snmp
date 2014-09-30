@@ -1,0 +1,23 @@
+- Requirements
+
+   - Net-SNMP libraries and headers.
+   - Qt4 libraries and headers.
+   - Makefile generation tool QMake.
+
+   You can obtain Net-SNMP and Qt from its websites or through your package manager on unix systems.
+
+- Installation
+
+   - Generate a platform-specific makefile:
+
+      qmake
+
+   - Build library
+
+      make
+
+   - Install library and headers
+
+      make install 
+      
+   Now you can begin to use qt-net-snmp in your C++/Qt projects.

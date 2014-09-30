@@ -4,10 +4,13 @@
 
    - Description
 
-      qt-net-snmp is an C++/Qt abstraction layer over Net-SNMP API.
+      qt-net-snmp library is a C++/Qt abstraction layer over Net-SNMP API.
 
+   - Installation
+
+      You must read INSTALL file to get more details about installation.
+   
    - License
 
       qt-net-snmp is licensed under the GNU General Public License version 3, 
       you should read LICENSE file to get more details about this.
-
