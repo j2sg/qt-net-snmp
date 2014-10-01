@@ -28,7 +28,7 @@
 #define QSNMPOID_H
 
 #include "qtnetsnmp_global.h"
-#include "types.h"
+#include "qsnmptypes.h"
 #include "qsnmpexception.h"
 #include <QString>
 #include <QVector>

@@ -19,23 +19,23 @@
  **/
 
 /**
-* @file global.h
+* @file qsnmpglobal.h
 * @brief Global constants declarations
 * @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
 */
 
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#ifndef QSNMPGLOBAL_H
+#define QSNMPGLOBAL_H
 
-#include "types.h"
+#include "qsnmptypes.h"
 
-#define LIBRARY_NAME "QtNetSNMP"
-#define DEFAULT_VERSION QtNetSNMP::SNMPv1
-#define DEFAULT_COMMUNITY_NAME "public"
-#define DEFAULT_NON_REPEATERS 0
-#define DEFAULT_MAX_REPETITIONS 10
-#define DEFAULT_PORT 161
-#define DEFAULT_RETRIES 2
-#define DEFAULT_TIMEOUT 1000000
+#define LIBRARY_NAME "QtNetSNMP"            /**< Library name */
+#define DEFAULT_VERSION QtNetSNMP::SNMPv1   /**< SNMP version by default */
+#define DEFAULT_COMMUNITY_NAME "public"     /**< SNMP community name by default */
+#define DEFAULT_NON_REPEATERS 0             /**< Non-repeaters value used by default on SNMP GET BULK requests */
+#define DEFAULT_MAX_REPETITIONS 10          /**< Max-repetitions value used by default on SNMP GET BULK requests */
+#define DEFAULT_PORT 161                    /**< SNMP Agent port number used by default */
+#define DEFAULT_RETRIES 2                   /**< Number of retries by default */
+#define DEFAULT_TIMEOUT 1000000             /**< Timeout (microseconds) by default */
 
-#endif // GLOBAL_H
+#endif // QSNMPGLOBAL_H

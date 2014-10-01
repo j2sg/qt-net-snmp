@@ -28,7 +28,7 @@
 #define QSNMPCORE_H
 
 #include "qtnetsnmp_global.h"
-#include "global.h"
+#include "qsnmpglobal.h"
 #include "qsnmpexception.h"
 #include <QString>
 #include <QVector>

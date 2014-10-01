@@ -28,7 +28,7 @@
 #define QSNMPOBJECT_H
 
 #include "qtnetsnmp_global.h"
-#include "types.h"
+#include "qsnmptypes.h"
 #include <QString>
 
 namespace QtNetSNMP

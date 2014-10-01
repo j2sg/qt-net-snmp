@@ -19,13 +19,13 @@
  **/
 
 /**
-* @file types.h
+* @file qsnmptypes.h
 * @brief Type declarations
 * @author Juan Jose Salazar Garcia, jjslzgc@gmail.com
 */
 
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef QSNMPTYPES_H
+#define QSNMPTYPES_H
 
 #include <net-snmp/net-snmp-config.h>
 #include <net-snmp/net-snmp-includes.h>
@@ -128,4 +128,4 @@ namespace QtNetSNMP
     typedef struct tree SNMPMIBTree;
 }
 
-#endif // TYPES_H
+#endif // QSNMPTYPES_H
