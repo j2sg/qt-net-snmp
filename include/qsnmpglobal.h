@@ -29,13 +29,13 @@
 
 #include "qsnmptypes.h"
 
-#define LIBRARY_NAME "QtNetSNMP"            /**< Library name */
-#define DEFAULT_VERSION QtNetSNMP::SNMPv1   /**< SNMP version by default */
-#define DEFAULT_COMMUNITY_NAME "public"     /**< SNMP community name by default */
-#define DEFAULT_NON_REPEATERS 0             /**< Non-repeaters value used by default on SNMP GET BULK requests */
-#define DEFAULT_MAX_REPETITIONS 10          /**< Max-repetitions value used by default on SNMP GET BULK requests */
-#define DEFAULT_PORT 161                    /**< SNMP Agent port number used by default */
-#define DEFAULT_RETRIES 2                   /**< Number of retries by default */
-#define DEFAULT_TIMEOUT 1000000             /**< Timeout (microseconds) by default */
+#define QTNETSNMP_LIBRARY_NAME "QtNetSNMP"            /**< Library name */
+#define QTNETSNMP_DEFAULT_VERSION QtNetSNMP::SNMPv1   /**< SNMP version by default */
+#define QTNETSNMP_DEFAULT_COMMUNITY_NAME "public"     /**< SNMP community name by default */
+#define QTNETSNMP_DEFAULT_NON_REPEATERS 0             /**< Non-repeaters value used by default on SNMP GET BULK requests */
+#define QTNETSNMP_DEFAULT_MAX_REPETITIONS 10          /**< Max-repetitions value used by default on SNMP GET BULK requests */
+#define QTNETSNMP_DEFAULT_PORT 161                    /**< SNMP Agent port number used by default */
+#define QTNETSNMP_DEFAULT_RETRIES 2                   /**< Number of retries by default */
+#define QTNETSNMP_DEFAULT_TIMEOUT 1000000             /**< Timeout (microseconds) by default */
 
 #endif // QSNMPGLOBAL_H

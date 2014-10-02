@@ -98,7 +98,7 @@ namespace QtNetSNMP
          * @param mrepetitions number of objects that should be returned for all the repeating OIDs
          */
         void snmpoperation(SNMPPDUType type, SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
-                           unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
+                           unsigned short nrepeaters = QTNETSNMP_DEFAULT_NON_REPEATERS, unsigned short mrepetitions = QTNETSNMP_DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
 
         /**
          * @brief Get MIB tree
@@ -115,7 +115,7 @@ namespace QtNetSNMP
          * @param retries number of retries
          * @param timeout number of microseconds for timeout
          */
-        QSNMPCore(unsigned short port = DEFAULT_PORT, unsigned short retries = DEFAULT_RETRIES, long timeout = DEFAULT_TIMEOUT);
+        QSNMPCore(unsigned short port = QTNETSNMP_DEFAULT_PORT, unsigned short retries = QTNETSNMP_DEFAULT_RETRIES, long timeout = QTNETSNMP_DEFAULT_TIMEOUT);
 
         /**
          * @brief QSNMPCore copy constructor
@@ -150,7 +150,8 @@ namespace QtNetSNMP
          * @param mrepetitions number of objects that should be returned for all the repeating OIDs
          * @return pointer to SNMPPDU struct
          */
-        SNMPPDU *createPDU(SNMPPDUType type, QVector<QSNMPObject *>& objs, unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
+        SNMPPDU *createPDU(SNMPPDUType type, QVector<QSNMPObject *>& objs, unsigned short nrepeaters = QTNETSNMP_DEFAULT_NON_REPEATERS,
+                           unsigned short mrepetitions = QTNETSNMP_DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
 
 
         /**
@@ -183,7 +184,6 @@ namespace QtNetSNMP
         /**
          * @brief retries Number of retries before timeout
          */
-
         unsigned short _retries;
 
         /**

@@ -60,7 +60,7 @@ namespace QtNetSNMP
          * @param retries number of retries
          * @param timeout number of microseconds for timeout
          */
-        void setup(unsigned short port, unsigned short retries = DEFAULT_RETRIES, long timeout = DEFAULT_TIMEOUT);
+        void setup(unsigned short port, unsigned short retries = QTNETSNMP_DEFAULT_RETRIES, long timeout = QTNETSNMP_DEFAULT_TIMEOUT);
 
         /**
          * @brief Send SNMP GET request
@@ -90,7 +90,7 @@ namespace QtNetSNMP
          * @param mrepetitions number of objects that should be returned for all the repeating OIDs
          */
         void snmpgetbulk(SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
-                         unsigned short nrepeaters = DEFAULT_NON_REPEATERS, unsigned short mrepetitions = DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
+                         unsigned short nrepeaters = QTNETSNMP_DEFAULT_NON_REPEATERS, unsigned short mrepetitions = QTNETSNMP_DEFAULT_MAX_REPETITIONS) throw(QSNMPException);
 
         /**
          * @brief Send SNMP SET request

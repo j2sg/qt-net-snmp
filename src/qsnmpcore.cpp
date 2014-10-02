@@ -69,7 +69,7 @@ QtNetSNMP::QSNMPCore *QtNetSNMP::QSNMPCore::instance()
 }
 
 void QtNetSNMP::QSNMPCore::snmpoperation(SNMPPDUType type, SNMPVersion version, const QString& community, const QString& agent, QVector<QSNMPObject *>& objs,
-                           unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
+                                         unsigned short nrepeaters, unsigned short mrepetitions) throw(QSNMPException)
 {
     SNMPSession *session;
     SNMPPDU *requestPDU;
@@ -102,7 +102,7 @@ QtNetSNMP::QMIBTree *QtNetSNMP::QSNMPCore::getMIBTree(SNMPMIBTree *root)
 
 QtNetSNMP::QSNMPCore::QSNMPCore(unsigned short port, unsigned short retries, long timeout) : _port(port), _retries(retries), _timeout(timeout)
 {
-    init_snmp(LIBRARY_NAME);
+    init_snmp(QTNETSNMP_LIBRARY_NAME);
     snmp_set_mib_warnings(0);
     snmp_set_mib_errors(0);
     snmp_set_save_descriptions(1);
