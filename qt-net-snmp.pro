@@ -3,7 +3,6 @@
 ######################################################################
 
 TEMPLATE = lib
-TARGET_DIR = lib
 OBJECTS_DIR = build
 MOC_DIR = build
 
