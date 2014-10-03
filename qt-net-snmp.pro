@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = lib
-
+TARGET_DIR = lib
 OBJECTS_DIR = build
 MOC_DIR = build
 
@@ -41,8 +41,11 @@ unix {
     target.path = /usr/lib
     headers.path = /usr/include/QtNetSNMP
     headers.files = include/*
+    documentation.path = /usr/share
+    documentation.commands = doxygen
+    documentation.files = doc
 
-    INSTALLS += target headers
+    INSTALLS += target headers documentation
 }
 
 OTHER_FILES += \

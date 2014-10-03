@@ -1,5 +1,6 @@
 v0.1.2 :
-   - Renamed Global macros to avoid multiple difinitions on client applications.
+   - Renamed all global macros to avoid multiple definitions on client applications.
+   - Added documentation generation and installation to QMake
 
 v0.1.1 : Initial release
 

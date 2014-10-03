@@ -3,6 +3,7 @@
    - Net-SNMP libraries and headers.
    - Qt4 libraries and headers.
    - Makefile generation tool QMake.
+   - Doxygen documentation generator.
 
    You can obtain Net-SNMP and Qt from its websites or through your package manager on unix systems.
 
@@ -19,5 +20,5 @@
    - Install library and headers (as root user)
 
       make install 
-      
+
    Now you can begin to use qt-net-snmp in your C++/Qt projects.
