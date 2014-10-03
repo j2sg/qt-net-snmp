@@ -1,10 +1,10 @@
-- qt-net-snmp 0.1.1
+- qt-net-snmp 0.1.2
 
    Copyright (c) 2014 Juan José Salazar García - jjslzgc@gmail.com
 
    - Description
 
-      qt-net-snmp library is a C++/Qt abstraction layer over Net-SNMP API.
+      qt-net-snmp library is a C++/Qt abstraction layer over Net-SNMP API that provides a basic support to SNMPv1/2 requests.
 
    - Installation
 
