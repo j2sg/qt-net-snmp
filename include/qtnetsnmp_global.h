@@ -1,7 +1,7 @@
 /**
  *  This file is part of Qt-Net-SNMP.
  *
- *  Copyright (c) 2014 Juan Jose Salazar Garcia jjslzgc@gmail.com
+ *  Copyright (c) 2014-2015 Juan Jose Salazar Garcia jjslzgc@gmail.com
  *
  *  Qt-Net-SNMP is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
